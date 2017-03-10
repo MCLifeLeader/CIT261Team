@@ -1,0 +1,1 @@
+/* Render the Satellite Image */
