@@ -1,0 +1,50 @@
+https://en.wikipedia.org/wiki/Two-line_element_set
+https://spaceflight.nasa.gov/realdata/sightings/SSapplications/Post/JavaSSOP/SSOP_Help/tle_def.html
+
+Originally there were two data formats used with the SGP models, one containing complete details on the object known as the "internal format", and the "transmission format" used to provide updates to that data.
+
+The internal format used three 80-column punch cards. Each card started with a card number, 1, 2 or 3, and ended with the letter "G". For this reason the system was often known as the "G-card format". In addition to the orbital elements, the G-card included various flags like the launching country and orbit type (geostationary, etc.), calculated values like the perigee altitude and visual magnitude, and a 38-character comments field.
+
+The transmission format is essentially a cut-down version of the G-card format, removing any data that is not subject to common change, or can be calculated using other values. For instance, the perigee altitude from the G-card is not included as this can be calculated from the other elements. What remains is the set of data needed to update the original G-card data as additional measurements are made. The data is fit into 70 columns, and does not include a trailing character. TLEs are simply the transmission format data rendered as ASCII text.
+
+An example TLE for the International Space Station:
+
+ISS (ZARYA)
+1 25544U 98067A   08264.51782528 -.00002182  00000-0 -11606-4 0  2927
+2 25544  51.6416 247.4627 0006703 130.5360 325.0288 15.72125391563537
+
+Line 1:
+Field	Columns	Content	Example
+1	01–01	Line number	1
+2	03–07	Satellite number	25544
+3	08–08	Classification (U=Unclassified)	U
+4	10–11	International Designator (Last two digits of launch year)	98
+5	12–14	International Designator (Launch number of the year)	067
+6	15–17	International Designator (piece of the launch)	A
+7	19–20	Epoch Year (last two digits of year)	08
+8	21–32	Epoch (day of the year and fractional portion of the day)	264.51782528
+9	34–43	First Time Derivative of the Mean Motion divided by two [10]	−.00002182
+10	45–52	Second Time Derivative of Mean Motion divided by six (decimal point assumed)	00000-0
+11	54–61	BSTAR drag term (decimal point assumed) [10]	-11606-4
+12	63–63	The number 0 (originally this should have been "Ephemeris type")	0
+13	65–68	Element set number. Incremented when a new TLE is generated for this object.[10]	292
+14	69–69	Checksum (modulo 10)	7
+
+Line 2:
+Field	Columns	Content	Example
+1	01–01	Line number	2
+2	03–07	Satellite number	25544
+3	09–16	Inclination (degrees)	51.6416
+4	18–25	Right ascension of the ascending node (degrees)	247.4627
+5	27–33	Eccentricity (decimal point assumed)	0006703
+6	35–42	Argument of perigee (degrees)	130.5360
+7	44–51	Mean Anomaly (degrees)	325.0288
+8	53–63	Mean Motion (revolutions per day)	15.72125391
+9	64–68	Revolution number at epoch (revolutions)	56353
+10	69–69	Checksum (modulo 10)	7
+
+Where decimal points are assumed, they are leading decimal points. The last two symbols in Fields 10 and 11 of the first line give powers of 10 to apply to the preceding decimal. Thus, for example, Field 11 (-11606-4) translates to -0.11606E-4 (-0.11606×10−4).
+
+The checksums for each line are calculated by adding all numerical digits on that line, including the line number. One is added to the checksum for each negative sign (−) on that line. All other non-digit characters are ignored.
+
+For a body in a typical Low Earth orbit, the accuracy that can be obtained with the SGP4 orbit model is on the order of 1 km within a few days of the epoch of the element set.[11] The term "low orbit" may refer to either the altitude (minimal or global) or orbital period of the body. Historically, the SGP algorithms defines low orbit as an orbit of less-than 225 minutes.
