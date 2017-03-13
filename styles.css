@@ -170,6 +170,11 @@ td, th {
 	font-weight: bold;
 	color: green;
 }
+textarea
+{
+	min-width: 600px;
+	min-height: 60px;
+}
 /*
 div
 {

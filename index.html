@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 	<head>
-		<title>Code Topics</title>
+		<title>Satellite Position Calculator</title>
 
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -12,24 +12,34 @@
 		<meta name="Distribution" content="Worldwide" />
 		<meta name="Rating" content="General" />
 
-		<meta name="DESCRIPTION" content="Proposed Project: Awesome Animated Calculator - Orbital path calculator." />
+		<meta name="DESCRIPTION" content="Awesome Animated Calculator - Orbital path calculator." />
 		<meta name="KEYWORDS" content="CIT 261, BYU-Idaho, Satellite Calculator" />
 		<meta name="School" content="BYU-Idaho" />
 		
 		<link rel="stylesheet" href="styles.css" />
+
+		<script src="scripts/globalObjects.js"></script>
+		<script src="scripts/readTleData.js"></script>		
 		<script src="scripts/tleCalculator.js"></script>
 		<script src="scripts/drawSatellite.js"></script>
-		<script src="scripts/drawSataelliteTrail.js"></script>
+		<script src="scripts/drawSatelliteTrail.js"></script>
 		
 	</head>
 	<body>
 		<div class="container body-content">
 			<div class="row">
                 <div class="col-md-12">
+					<h1>Satellite Position Calculator</h1>
+					<h2>Based on TLE data</h2>
                 </div>
 				<div class="row">
 					<div class="col-md-12"><hr /></div>
 				</div>
+                <div class="col-md-12">
+					<label>Enter a TLE Data String: </lable><br/>
+					<textarea id="TleDataId" type="text" value=""></textarea><br />
+					<button onclick="readTleData(document.getElementById('TleDataId').value)">Input TLE</button><br /><br />
+                </div>
                 <div class="col-md-12">
 
                 </div>
