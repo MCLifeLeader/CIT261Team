@@ -55,16 +55,9 @@ function readTleData(tleData)
         throw "Unexpected Line Length. TLE Data maybe Invalid.";
     }
 
-    parseLine1(line1);
-    parseLine2(line2);
-}
+    tleSatDataObj.setLine1Data = line1;
+    tleSatDataObj.setLine2Data = line2;
 
-function parseLine1(line)
-{
-
-}
-
-function parseLine2(line)
-{
-    
+    console.log(tleSatDataObj.getLine1AsJson);
+    console.log(tleSatDataObj.getLine2AsJson);
 }
