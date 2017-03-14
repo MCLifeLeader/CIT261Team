@@ -11,6 +11,40 @@ body {
     font-size: 14px;
     line-height: 1.42857;
 }
+
+header
+{
+    margin-left:100px;
+}
+
+nav
+{
+    margin-left:20px;   
+}
+
+#navbar
+{
+    list-style:none;
+}
+
+.navlinks
+{
+    display:inline;
+    margin-right:10px;
+}
+
+.navlinks a, a:active, a:visited
+{
+    color:steelblue;
+    text-decoration:none;
+}
+
+.navlinks a:hover
+{
+    color:darkseagreen;
+    text-decoration:none;
+}
+
 a {
     background-color: transparent;
 }

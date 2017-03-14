@@ -23,28 +23,67 @@
 		<script src="scripts/tleCalculator.js"></script>
 		<script src="scripts/drawSatellite.js"></script>
 		<script src="scripts/drawSatelliteTrail.js"></script>
+<!--		<script src="scripts/mapFuncs.js"></script>-->
+        <script>
+        function changeMap(mID)
+{
+//    var request = new XMLHttpRequest();
+//        request.onreadystatechange = function() 
+//            {
+//                if(this.readyState == 4 && this.status == 200)
+//                    {
+                        
+//                        document.getElementById("map").innerHTML = uriImg;
+//                        parent.removeChild(child);
+//                    }
+//            }
+//        request.open("GET", 'images/' + id + ".png",true);
+//        request.send();
+            
+        var uriImg = '<img src="images/'+mID+'.png" alt="mapImage">';
+        var parent = document.getElementsByClassName("row");
+        var child = document.createElement("div");
+        child.id = mID+"div";
+        var oldDiv = document.getElementById("map");
+        parent.appendChild(child);
+//        var getD = document.getElementsByTagName("div");
+        var getId = document.getElementById(child.id);
+        getId.innerHTML = uriImg;
+           
+}
+        </script>
 		
 	</head>
 	<body>
+        <header><h1>Satellite Position Calculator</h1>
+            <nav>
+                <ul id="nav">
+                    <li class="navlinks"><a class="WorldMap02" onclick="changeMap(this.className)" href="#">Default Map</a></li>
+                    <li class="navlinks"><a class="WorldMap03" onclick="changeMap(this.className)" href="#">WoW Map</a></li>
+                </ul>
+            </nav>
+        </header>
+        <section>
 		<div class="container body-content">
 			<div class="row">
                 <div class="col-md-12">
-					<h1>Satellite Position Calculator</h1>
+<!--					<h1>Satellite Position Calculator</h1>-->
 					<h2>Based on TLE data</h2>
                 </div>
 				<div class="row">
 					<div class="col-md-12"><hr /></div>
 				</div>
                 <div class="col-md-12">
-					<label>Enter a TLE Data String: </lable><br/>
+					<label>Enter a TLE Data String: </label><br/>
 					<textarea id="TleDataId" type="text" value=""></textarea><br />
 					<button onclick="readTleData(document.getElementById('TleDataId').value)">Input TLE</button><br /><br />
                 </div>
-                <div class="col-md-12">
-
+                <div id="map" class="col-md-12">
+<!--                    <img src="Images/WorldMap02.png" alt='mapImage'>-->
                 </div>
             </div>
         </div>
+        </section>
 		<div id="Footer">
 
         </div>
