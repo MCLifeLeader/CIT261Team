@@ -14,7 +14,7 @@ function readTleData(tleData)
     }
     
     // Remove return character if found and split on linefeed
-    var tleLines = tleData.replace("\r","").split("\n");
+    var tleLines = tleData.trim().replace("\r","").split("\n");
 
     console.log("TLE lines: \n" + tleLines);
 
