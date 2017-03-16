@@ -1,4 +1,4 @@
-https://en.wikipedia.org/wiki/Two-line_element_set
+﻿https://en.wikipedia.org/wiki/Two-line_element_set
 https://spaceflight.nasa.gov/realdata/sightings/SSapplications/Post/JavaSSOP/SSOP_Help/tle_def.html
 
 Originally there were two data formats used with the SGP models, one containing complete details on the object known as the "internal format", and the "transmission format" used to provide updates to that data.
@@ -48,3 +48,5 @@ Where decimal points are assumed, they are leading decimal points. The last two 
 The checksums for each line are calculated by adding all numerical digits on that line, including the line number. One is added to the checksum for each negative sign (−) on that line. All other non-digit characters are ignored.
 
 For a body in a typical Low Earth orbit, the accuracy that can be obtained with the SGP4 orbit model is on the order of 1 km within a few days of the epoch of the element set.[11] The term "low orbit" may refer to either the altitude (minimal or global) or orbital period of the body. Historically, the SGP algorithms defines low orbit as an orbit of less-than 225 minutes.
+
+Learning git.
