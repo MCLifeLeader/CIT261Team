@@ -32,3 +32,8 @@ Two Line Element Set (TLE):
 <li>Eric Minson</li>
 <li>Chris Zitting</li>
 </ul>
+
+## Credits
+
+### External Sources
+TLE Logic Referened from http://www.satellite-calculations.com by Jens T. Satre
