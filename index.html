@@ -23,37 +23,7 @@
 		<script src="Scripts/tleCalculator.js"></script>
 		<script src="Scripts/drawSatellite.js"></script>
 		<script src="Scripts/drawSatelliteTrail.js"></script>
-		<script src="Scripts/loadTleData.js"></script>
-<!--		<script src="scripts/mapFuncs.js"></script>-->
-        <script>
-        function changeMap(mID)
-{
-//    var request = new XMLHttpRequest();
-//        request.onreadystatechange = function() 
-//            {
-//                if(this.readyState == 4 && this.status == 200)
-//                    {
-                        
-//                        document.getElementById("map").innerHTML = uriImg;
-//                        parent.removeChild(child);
-//                    }
-//            }
-//        request.open("GET", 'images/' + id + ".png",true);
-//        request.send();
-            
-        var uriImg = '<img src="images/'+mID+'.png" alt="mapImage">';
-        var parent = document.getElementsByClassName("row");
-        var child = document.createElement("div");
-        child.id = mID+"div";
-        var oldDiv = document.getElementById("map");
-        parent.appendChild(child);
-//        var getD = document.getElementsByTagName("div");
-        var getId = document.getElementById(child.id);
-        getId.innerHTML = uriImg;
-           
-}
-        </script>
-		
+		<script src="Scripts/loadTleData.js"></script>		
 	</head>
 	<body>
         <header><h1>Satellite Position Calculator</h1>
