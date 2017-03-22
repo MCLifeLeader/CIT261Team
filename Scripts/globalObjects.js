@@ -137,3 +137,9 @@ var tleSatDataObj = {
         this.line2.checkSum = stringData.substring(68,69).trim();
     }
 }
+
+var Earth_equatorial_radius = 6378.135;
+var GeoSyncRadius = 42164.57;
+
+var toRad = 2 * Math.PI / 360;
+var toDeg = 360 / (2 * Math.PI);
