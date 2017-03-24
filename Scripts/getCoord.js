@@ -18,9 +18,18 @@ function getCoord()
                 satList = satData.trim().replace("\r","").split("\n");
                 for (i = 0; i < satList.length; i += 3)
                     {
+//                        console.log(satList[i]);
+//                        var node = document.createElement("option");
+//                        node.value = i;
+//                        node.innerHTML = satList[i];
+//                        var element = document.getElementById("satSelector");
+//                        element.appendChild(node);
+                        
                         console.log(satList[i]);
-                        var node = document.createElement("option");
-                        node.value = i;
+                        var node = document.createElement("a");
+                        node.href = "javascript:loadCoord("+i+")";
+                        node.className = i;
+//                        console.log("loadCoord("+ i +")";
                         node.innerHTML = satList[i];
                         var element = document.getElementById("satSelector");
                         element.appendChild(node);
