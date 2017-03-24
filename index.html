@@ -29,25 +29,20 @@
 	<body onload="getCoord()">
         <header><h1>Satellite Position Calculator</h1>
             <nav>
-<!--
+                
+<!-- This was the original code Mike and Chris created
+
                 <select onchange="loadCoord(this.value)" id="satSelector">
                     <option value="-1">Please Select a Satellite</option>
                 </select>
--->
-<!--                <ul id="nav">-->
+
+Chris got rid of this and opted for more of a div style dropdown menu -->
+                
                 <div class="dropdown">
                     <div onmouseover="showLinks()" class="dropbtn">Satellites</div>
                     <div id="satSelector" class="dropdown-content">
                     </div>
                 </div>
-                <!--<div id="dropdown">
-                    <a href="#" onhover="showLinks()"></a>
-                    <div id="droplinks">
-                        <div class="navlinks"><a id="OSCAR 3" onclick="getCoord()" href="#">OSCAR3</a></div>
-                        <div class="navlinks"><a id="OPAL" onclick="getCoord()" href="#">OPAL</a></div>
-                    </div>
-                </div>-->
-<!--                </ul>-->
             </nav>
         </header>
         <section>
