@@ -23,17 +23,25 @@
 		<script src="Scripts/tleCalculator.js"></script>
 		<script src="Scripts/drawSatellite.js"></script>
 		<script src="Scripts/drawSatelliteTrail.js"></script>
-		<script src="Scripts/loadTleData.js"></script>		
+		<script src="Scripts/loadTleData.js"></script>
+		<script src="Scripts/getCoord.js"></script>		
 	</head>
-	<body>
+	<body onload="getCoord()">
         <header><h1>Satellite Position Calculator</h1>
             <nav>
-                <ul id="nav">
+                <select onchange="loadCoord(this.value)" id="satSelector">
+                    <option value="-1">Please Select a Satellite</option>
+                </select>
+<!--                <ul id="nav">-->
 <!--
-                    <li class="navlinks"><a class="WorldMap02" onclick="changeMap(this.className)" href="#">Default Map</a></li>
-                    <li class="navlinks"><a class="WorldMap03" onclick="changeMap(this.className)" href="#">WoW Map</a></li>
+                <div id="dropdown" onhover="showLinks()">
+                    <div id="droplinks">
+                        <div class="navlinks"><a id="OSCAR 3" onclick="getCoord()" href="#">OSCAR3</a></div>
+                        <div class="navlinks"><a id="OPAL" onclick="getCoord()" href="#">OPAL</a></div>
+                    </div>
+                </div>
 -->
-                </ul>
+<!--                </ul>-->
             </nav>
         </header>
         <section>
