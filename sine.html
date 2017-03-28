@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Animate</title>
+    
+    <style>
+      #redbox {
+      width: 50px;
+      height: 50px;
+      position: relative;
+      background-color: red;
+      }
+
+      #bluebox {
+      width: 50px;
+      height: 50px;
+      margin-left: 100px;
+      margin-right: 100px;
+      position: relative;
+      background-color: blue;
+      }
+
+
+    </style>
+  </head>
+
+  <body>
+    <div>
+    <button type="button"  onclick="right()">right</button>
+    <div id="redbox"></div>
+    </div>
+  </body>
+
+  <script type="text/javascript">
+function right(){
+  var redbox = document.getElementById("redbox");
+  var interval = setInterval(frame, 250);
+  var move = 0;
+   var vertical = 58;
+  var slope = 20;
+  var cr = 0;
+  var m = 90/180*Math.PI / 9;
+  function frame(){
+    for(i = 0; i <=1; i++){ 
+      redbox.style.top = vertical - Math.sin(cr) * slope + "px";
+      redbox.style.left = move + "px";
+      cr += m;
+      move++;
+      if(move>10000){
+        clearInterval(interval);
+        break;
+      }
+    }
+  }
+}
+  </script>
+</html>
