@@ -1,18 +1,62 @@
-/* Work in progress (Sergei)
+/*
 
-Attempting to write a function that loads TLE data from n2yo.com onto our website.
-For now, it just returns the data for the ISS as a string.
+This function pulls the TLE data from www.tle.info
+and saves it in local storage under 'tleData'.
 
-Additional functionality for the future:
-- pass the ID of the object we're tracking 
-	(Make them match the urls on n2yo.com?: 
-	 http://www.n2yo.com/satellite/?s=25544 - ISS
-	 http://www.n2yo.com/satellite/?s=42053 - DRAGON CRS-10 (Space X) etc.)
-- load the data into a JSON file?
 */
 
+function loadTleData() {
+	// Modifying a request option to use a proxy to bypass same-origin policy
+	$.ajaxPrefilter( function (options) {
+		if (options.crossDomain && jQuery.support.cors) {
+			var http = (window.location.protocol === 'http:' ? 'http:' : 'https:');
+			options.url = http + '//cors-anywhere.herokuapp.com/' + options.url;
+		}
+	});
+	// Making the request, the proxy returns the file we are looking for
+	$.get('http://www.tle.info/data/amateur.txt',
+		function (response) {
+			// Store the response in local storage
+			localStorage.setItem('tleData', response);
+			var localTleData = localStorage.getItem('tleData');
+	});
+}
+
+
+
+/* Old code that that doesn't work, just for the record.
+
+-------------------------Using jQuery and a different proxy--------------------------------
+var ContentLocationInDOM = "#someNode > .childNode";
+
+$(document).ready(loadTleData);
+function loadTleData()
+{
+	//var QueryURL = "http://anyorigin.com/get?url=www.n2yo.com/satellite/?s=" + objID + "&callback=?";
+	QueryURL = "http://anyorigin.com/get?url=www.n2yo.com/satellite/?s=25544&callback=?";
+	$.getJSON(QueryURL, function(data){
+		if (data && data != null && typeof data == "object" && data.contents && data.contents != null && typeof data.contents == "string")
+		{
+            if (data.length > 0)
+            {
+               if (ContentLocationInDOM && ContentLocationInDOM != null && ContentLocationInDOM != "null")
+               {
+                  $('#queryResultContainer').html($(ContentLocationInDOM, data));
+               }
+               else
+               {
+                  $('#queryResultContainer').html(data);
+               }
+            }
+         }
+	});
+}
+//<div id="queryResultContainer"/>
+
+
+----------Using XMLHttpRequest (no-go because of the Same Origin Policy)-------------------
 function loadTleData () {
-	/* 
+	
 	var request = new XMLHttpRequest();
 	request.open('GET', 'http://www.n2yo.com/satellite/?s=25544', true);
 	request.responseType = 'document';
@@ -24,9 +68,8 @@ function loadTleData () {
 		alert(tle);
 	}
 	//return tle;
-	*/
-// Figured out that cross-domain XMLHttpRequest doesn't work no matter what.
-// Experimenting with JSONP. Reworking an example found online.
+
+//----------------------------------JSONP--------------------------------------------------
 	function requestJSONP(url) {
 	// create script with passed in URL
 		var script = document.createElement('script');
@@ -45,18 +88,10 @@ function loadTleData () {
 	function processData(data) {
 	// do something with data
   
-	// for example, print out the temperature
-		var channel = data.query.results.channel;
-		document.querySelector('.weather').innerHTML = 
-			'The temperature in ' + 
-			channel.location.city + ', ' +
-			channel.location.country + ' is ' +
-			channel.item.condition.temp + '&deg; ' + 
-			channel.units.temperature;
 	}
 
 	// get the weather data for Aldeburgh, GB via JSONP
 	var url = 'http://www.n2yo.com/satellite/?s=25544';
 
 	requestJSONP(url);
-}
+*/
