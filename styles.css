@@ -4,8 +4,23 @@
 html {
     font-size: 10px;
 }
+
+@media screen and (min-width: 500px) {
+   body {
+      width:420px;
+   }
+}
+
+@media screen and (min-width: 800px) {
+   body {
+      width:720px;
+   }
+}
+
 body {
     background-color: #fff;
+    width:1920px;
+    height:1080px;
     color: #333;
     font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
     font-size: 14px;
