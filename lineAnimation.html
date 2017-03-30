@@ -8,7 +8,7 @@
       height: 10px;
       position: fixed;
       background-color: red;
-      margin-top: 187px;
+      margin-top: 140px;
       }
 
     </style>
@@ -16,7 +16,6 @@
   <body onload="line()">
     <div id="redbox"></div>
     <canvas id="myCanvas"></canvas>
-    <button type="button"  onclick="right()">play</button>
   </body>
 </html>
 
@@ -43,16 +42,17 @@ function line(){
     ctx.lineTo(x,y);
     ctx.stroke();
   }
+  right();
 }
 
 function right(){
   var redbox = document.getElementById("redbox");
   var interval = setInterval(frame, 100);
   var move = 0;
-   var vertical = 10;
+   var vertical = 58;
   var slope = 20;
   var cr = 0;
-  var m = 90/180*Math.PI / 200;
+  var m = 90/180*Math.PI / 275;
   function frame(){
     for(i = 0; i <=1; i++){ 
       redbox.style.top = vertical - Math.sin(cr) * slope + "px";
