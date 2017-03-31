@@ -21,23 +21,12 @@
 		<script src="Scripts/globalObjects.js"></script>
 		<script src="Scripts/readTleData.js"></script>		
 		<script src="Scripts/tleCalculator.js"></script>
-		<script src="Scripts/drawSatellite.js"></script>
-		<script src="Scripts/drawSatelliteTrail.js"></script>
 		<script src="Scripts/loadTleData.js"></script>
 		<script src="Scripts/getCoord.js"></script>		
 	</head>
 	<body onload="getCoord()">
         <header><h1>Satellite Position Calculator</h1>
-            <nav>
-                
-<!-- This was the original code Mike and Chris created
-
-                <select onchange="loadCoord(this.value)" id="satSelector">
-                    <option value="-1">Please Select a Satellite</option>
-                </select>
-
-Chris got rid of this and opted for more of a div style dropdown menu -->
-                
+            <nav>                
                 <div class="dropdown">
                     <div onmouseover="showLinks()" class="dropbtn">Satellites</div>
                     <div id="satSelector" class="dropdown-content">
@@ -49,7 +38,6 @@ Chris got rid of this and opted for more of a div style dropdown menu -->
 		<div class="container body-content">
 			<div class="row">
                 <div class="col-md-12">
-<!--					<h1>Satellite Position Calculator</h1>-->
 					<h2>Based on TLE data</h2>
                 </div>
 				<div class="row">

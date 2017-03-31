@@ -1,1 +1,0 @@
-/* Draw the Satellite trail path. (Future) and (Past) */
