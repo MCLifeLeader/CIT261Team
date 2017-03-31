@@ -2,7 +2,11 @@
 
 //Show links dropdown
 
-function showLinks() {
+function showSatLinks() {
+    document.getElementById("satSelector").classList.toggle("show");
+}
+
+function showMapLinks() {
     document.getElementById("satSelector").classList.toggle("show");
 }
 
