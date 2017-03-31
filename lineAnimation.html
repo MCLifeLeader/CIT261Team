@@ -8,7 +8,7 @@
       height: 10px;
       position: fixed;
       background-color: red;
-      margin-top: 140px;
+      margin-top: 5px;
       }
 
     </style>
@@ -21,18 +21,24 @@
 
 <script>
 function line(){
+<<<<<<< HEAD
+  document.getElementById("myCanvas").style.backgroundImage = "url('WorldMap.png')";
+  document.getElementById("myCanvas").style.width = "300px";
+=======
   document.getElementById("myCanvas").style.backgroundImage = "url('Images/WorldMap01.png')";
   document.getElementById("myCanvas").style.width = "1000px";
+>>>>>>> origin/master
   
   var c = document.getElementById("myCanvas");
   var ctx = c.getContext("2d");
     ctx.lineWidth = 1;
   var cr = 0;
   var x=0;
+  var frequency = 9;
   var y=vertical;
   var vertical = 58;
-  var slope = 7;
-  var m = 90/180*Math.PI / 9;
+  var slope = 15;
+  var m = 90/180*Math.PI / frequency;
   
     for(var i=0; i<=360; i+=10){
     ctx.moveTo(x,y);
@@ -47,19 +53,20 @@ function line(){
 
 function right(){
   var redbox = document.getElementById("redbox");
-  var interval = setInterval(frame, 100);
+  var interval = setInterval(frame, 20);
+  var frequency = 90;
   var move = 0;
    var vertical = 58;
-  var slope = 20;
+  var slope = 15;
   var cr = 0;
-  var m = 90/180*Math.PI / 275;
+  var m = 90/180*Math.PI / frequency;
   function frame(){
     for(i = 0; i <=1; i++){ 
       redbox.style.top = vertical - Math.sin(cr) * slope + "px";
       redbox.style.left = move + "px";
       cr += m;
       move++;
-      if(move>1000){
+      if(move>305){
         clearInterval(interval);
         break;
       }
