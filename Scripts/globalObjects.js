@@ -7,7 +7,7 @@ function showSatLinks() {
 }
 
 function showMapLinks() {
-    document.getElementById("satSelector").classList.toggle("show");
+    document.getElementById("mapSelector").classList.toggle("show");
 }
 
 // Close the dropdown if the user clicks outside of it

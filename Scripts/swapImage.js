@@ -1,5 +1,5 @@
 function swapImage(selector, target) {
 	var image = document.getElementById(target);
-	image.src = selector.value;
+	image.src = selector;
 };
 

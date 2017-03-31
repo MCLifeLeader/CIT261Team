@@ -23,7 +23,7 @@ function getCoord() {
                     //                        var element = document.getElementById("satSelector");
                     //                        element.appendChild(node);
 
-                    console.log(satList[i]);
+//                    console.log(satList[i]);
                     var node = document.createElement("a");
                     node.href = "javascript:loadCoord(" + i + ")";
                     node.className = i;

@@ -22,14 +22,28 @@
 		<script src="Scripts/readTleData.js"></script>		
 		<script src="Scripts/tleCalculator.js"></script>
 		<script src="Scripts/loadTleData.js"></script>
-		<script src="Scripts/getCoord.js"></script>		
+		<script src="Scripts/getCoord.js"></script>
+		<script src="Scripts/swapImage.js"></script>
 	</head>
 	<body onload="getCoord()">
         <header><h1>Satellite Position Calculator</h1>
             <nav>                
                 <div class="dropdown">
-                    <div onmouseover="showLinks()" class="dropbtn">Satellites</div>
+                    <div onmouseover="showSatLinks()" class="dropbtn">Satellites</div>
                     <div id="satSelector" class="dropdown-content">
+                    </div>
+                </div>
+				<div class="dropdown">
+                    <div onmouseover="showMapLinks()" class="dropbtn">World Maps</div>
+                    <div id="mapSelector" class="dropdown-content">
+					<a href="javascript:swapImage('Images/WorldMap01.png', 'imageToSwap')">World Map</a>
+					<a href="javascript:swapImage('Images/WorldMap04.jpg', 'imageToSwap')">World Cities</a>
+					<a href="javascript:swapImage('Images/WorldMap05.jpg', 'imageToSwap')">World Map 2</a>
+					<a href="javascript:swapImage('Images/WorldMap06.jpg', 'imageToSwap')">World Map 3</a>
+					<a href="javascript:swapImage('Images/WorldMap03.jpg', 'imageToSwap')">Time Zones</a>
+					<a href="javascript:swapImage('Images/WorldMap02.jpg', 'imageToSwap')">Elements</a>
+					<a href="javascript:swapImage('Images/MiddleEarth01.jpg', 'imageToSwap')">Middle Earth 1</a>
+					<a href="javascript:swapImage('Images/MiddleEarth02.jpg', 'imageToSwap')">Middle Earth 2</a>
                     </div>
                 </div>
             </nav>
@@ -49,7 +63,7 @@
 					<button onclick="readTleData(document.getElementById('TleDataId').value)">Input TLE</button><br /><br />
                 </div>
                 <div id="map" class="col-md-12">
-                    <img width="375" height="192" src="Images/WorldMap02.png" alt='mapImage'>
+                    <img id="imageToSwap" src="Images/WorldMap01.png">
                 </div>
             </div>
         </div>
