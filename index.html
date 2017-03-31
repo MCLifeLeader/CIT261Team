@@ -65,16 +65,36 @@
                 </div>
                 <script>
                     function doButtonActions() {
+
                         readTleData(document.getElementById('TleDataId').value);
-                        Tracker.twoline.value = document.getElementById('TleDataId').value;
-                        ManualTimeUpdate();
                         getTLEfromTextAerea();
                         onchange_satellite_rev_siderealday();
+
+                        ReadPosition();
+                        CalculateCoordinate();
+                        SetCookie();
+                        ManualTimeUpdate()
+                    }
+
+                    function UpdateInputField() {
+                        document.getElementById('locationLatLong').value = document.getElementById('selectPosition').value;
                     }
                 </script>
                 <div class="col-md-12">
+                    <label>GPS Coordinates</label></br>
+                    <input id="locationLatLong" type="text" />
+                </div>
+                <div class="col-md-12">
+                    <label title="Select your nearest location or set the position manually">Select your nearest location or set the position manually</label></br>
+                    <select id="selectPosition" name="selectPosition" size="11" onchange="UpdateInputField();">
+                        <script language="javascript">
+                            document.write(sites);
+                        </script>
+                    </select>
+                </div>
+                <div class="col-md-12">
                     <label>Enter a TLE Data String: </label><br/>
-                    <textarea cols="4" class="textarea" id="TleDataId" type="text" value=""></textarea><br />
+                    <textarea cols="4" class="textarea" id="TleDataId" type="text" value="" style="width: 200px;"></textarea><br />
                     <button onclick="doButtonActions();">Input TLE</button>
                     <br/><br />
                 </div>
@@ -85,7 +105,6 @@
             <div class="row">
                 <div class="col-md-12">
                     <!-- Jens T. Satre - http://www.satellite-calculations.com/ -->
-
                     <form method="post" name="Tracker">
 
                         <table border="1" cellspacing="0" width="680" bgcolor="#C0C0C0" align="center">
@@ -93,27 +112,27 @@
                                 <td>Adapted from: Jens T. Satre - http://www.satellite-calculations.com/</td>
                             </tr>
 
-                            <tr valign="top" bgcolor="#FFFFFF">
-                                <font size="2" face="Trebuchet MS">
-                                    <td valign="top">Two Line Elements:<br>
-                                        <textarea name="twoline" rows="3" cols="70"></textarea>
-                                        <!--<input onclick="ManualTimeUpdate();getTLEfromTextAerea();onchange_satellite_rev_siderealday()" type=button value="Load TLE"
-										 name=button1 style="FONT-FAMILY: Trebuchet MS">-->
+                            <!--<tr valign="top" bgcolor="#FFFFFF">
+                                <font size="2">
+                                    <td valign="top">
+                                        <textarea name="twoline" rows="3" cols="70" hidden></textarea>
+                                        <input onclick="ManualTimeUpdate();getTLEfromTextAerea();onchange_satellite_rev_siderealday()" type=button value="Load TLE"
+										 name=button1 >
                                 </font>
                                 </td>
                                 </font>
-                            </tr>
+                            </tr>-->
                         </table>
                         <table border="1" cellspacing="0" width="680" bgcolor="#C0C0C0" align="center">
-                            <tr>
+                            <!--<tr>
                                 <td valign="top" width="240">
-                                    <font color="#000000" size="2" face="Trebuchet MS">Site Location</font>
+                                    <font color="#000000" size="2">Site Location</font>
                                 </td>
                                 <td valign="top" nowrap width="58">&nbsp;</td>
                                 <td valign="top" bgcolor="#FFFFFF" width="294">
                                     <p>
-                                        <font color="#000000" face="Trebuchet MS"><span title="Select your nearest location or set the position manually">
-            <select name="Position" size="11" onchange="ReadPosition();CalculateCoordinate();SetCookie();ManualTimeUpdate()" style="FONT-FAMILY: Trebuchet MS">
+                                        <span title="Select your nearest location or set the position manually">
+            <select name="Position" size="11" onchange="ReadPosition();CalculateCoordinate();SetCookie();ManualTimeUpdate()" >
               	
 		<script language="javascript">
 														document.write(sites);
@@ -121,45 +140,41 @@
  
             </select>
 			</span>
-                                        </font>
                                         <font color="#000000">
-
                                             <script language="javascript">
                                                 document.write(sites_updated);
                                             </script>
-
                                             <p align="left">
-                                                <font color="#000000" size="2" face="Trebuchet MS">Find your coordinates at</font>
+                                                <font color="#000000" size="2">Find your coordinates at</font>
                                                 <script language="javascript">
                                                     document.write(gnslink);
                                                 </script>
-                                                <font color="#000000" size="2" face="Trebuchet MS"> GNS Search</font>
+                                                <font color="#000000" size="2"> GNS Search</font>
                                                 </a>
                                             </p>
 
                                         </font>
                                     </p>
-
                                 </td>
-                            </tr>
+                            </tr>-->
                             <tr>
                                 <td valign="top" width="240">
-                                    <font color="#000000" size="2" face="Trebuchet MS">Site Latitude</font>
+                                    <font color="#000000" size="2">Site Latitude</font>
                                 </td>
                                 <td valign="top" width="58">
-                                    <font color="#000000" size="2" face="Trebuchet MS">Degrees</font>
+                                    <font color="#000000" size="2">Degrees</font>
                                 </td>
                                 <td bgcolor="#FFFFFF" width="294">
                                     <p>
-                                        <font color="#000000" size="2" face="Trebuchet MS">
-                                            <input type="text" size="6" name="LatitudeDegrees" value="59.92" onchange="SetCookie();CalculateCoordinate();ManualTimeUpdate()" style="FONT-FAMILY: Trebuchet MS">
-                                            <select name="LatitudeDirection" size="1" onchange="SetCookie();CalculateCoordinate();ManualTimeUpdate()" style="FONT-FAMILY: Trebuchet MS">
+                                        <font color="#000000" size="2">
+                                            <input type="text" size="6" name="LatitudeDegrees" value="59.92" onchange="SetCookie();CalculateCoordinate();ManualTimeUpdate()">
+                                            <select name="LatitudeDirection" size="1" onchange="SetCookie();CalculateCoordinate();ManualTimeUpdate()">
 												<option selected value="North">North</option>
 												<option value="South">South</option>
 											</select>
-                                            <input type="text" size="1" name="LatDegrees" onchange="CalculateLat();SetCookie();CalculateCoordinate();ManualTimeUpdate()" style="FONT-FAMILY: Trebuchet MS">deg.
-                                            <input type="text" size="1" name="LatMinutes" onchange="CalculateLat();SetCookie();CalculateCoordinate();ManualTimeUpdate()" style="FONT-FAMILY: Trebuchet MS">min
-                                            <input type="text" size="1" name="LatSeconds" onchange="CalculateLat();SetCookie();CalculateCoordinate();ManualTimeUpdate()" style="FONT-FAMILY: Trebuchet MS">sec
+                                            <input type="text" size="1" name="LatDegrees" onchange="CalculateLat();SetCookie();CalculateCoordinate();ManualTimeUpdate()">deg.
+                                            <input type="text" size="1" name="LatMinutes" onchange="CalculateLat();SetCookie();CalculateCoordinate();ManualTimeUpdate()">min
+                                            <input type="text" size="1" name="LatSeconds" onchange="CalculateLat();SetCookie();CalculateCoordinate();ManualTimeUpdate()">sec
 
                                         </font>
                                     </p>
@@ -168,23 +183,22 @@
                             </tr>
                             <tr>
                                 <td valign="top" width="240">
-                                    <font color="#000000" size="2" face="Trebuchet MS">Site Longitude</font>
+                                    <font color="#000000" size="2">Site Longitude</font>
                                 </td>
                                 <td valign="top" width="58">
-                                    <font color="#000000" size="2" face="Trebuchet MS">Degrees</font>
+                                    <font color="#000000" size="2">Degrees</font>
                                 </td>
                                 <td bgcolor="#FFFFFF" width="294">
                                     <p>
-                                        <font color="#000000" size="2" face="Trebuchet MS">
+                                        <font color="#000000" size="2">
                                             <!--webbot
-            bot="Validation" s-data-type="Number" s-number-separators="x." --><input type="text" size="6" name="LongitudeDegrees" value="10.75" onchange="SetCookie();CalculateCoordinate();ManualTimeUpdate()" style="FONT-FAMILY: Trebuchet MS"><select name="LongitudeDirection" size="1"
-                                                onchange="SetCookie();CalculateCoordinate();ManualTimeUpdate()" style="FONT-FAMILY: Trebuchet MS">
+            bot="Validation" s-data-type="Number" s-number-separators="x." --><input type="text" size="6" name="LongitudeDegrees" value="10.75" onchange="SetCookie();CalculateCoordinate();ManualTimeUpdate()"><select name="LongitudeDirection" size="1" onchange="SetCookie();CalculateCoordinate();ManualTimeUpdate()">
                 <option selected value="East">East</option>
                 <option value="West">West</option>
             </select>
-                                            <input type="text" size="1" name="LonDegrees" onchange="CalculateLon();SetCookie();CalculateCoordinate();ManualTimeUpdate()" style="FONT-FAMILY: Trebuchet MS">deg.
-                                            <input type="text" size="1" name="LonMinutes" onchange="CalculateLon();SetCookie();CalculateCoordinate();ManualTimeUpdate()" style="FONT-FAMILY: Trebuchet MS">min
-                                            <input type="text" size="1" name="LonSeconds" onchange="CalculateLon();SetCookie();CalculateCoordinate();ManualTimeUpdate()" style="FONT-FAMILY: Trebuchet MS">sec
+                                            <input type="text" size="1" name="LonDegrees" onchange="CalculateLon();SetCookie();CalculateCoordinate();ManualTimeUpdate()">deg.
+                                            <input type="text" size="1" name="LonMinutes" onchange="CalculateLon();SetCookie();CalculateCoordinate();ManualTimeUpdate()">min
+                                            <input type="text" size="1" name="LonSeconds" onchange="CalculateLon();SetCookie();CalculateCoordinate();ManualTimeUpdate()">sec
                                         </font>
                                     </p>
 
@@ -192,85 +206,14 @@
                             </tr>
                             <tr>
                                 <td valign="top">
-                                    <font size="2" face="Trebuchet MS">Epoch time</font>
+                                    <font size="2">Epoch time</font>
                                 </td>
                                 <td valign="top">
-                                    <font size="2" face="Trebuchet MS"></font>
-                                </td>
-
-                                <td valign="top" bgcolor="#FFFFFF">
-                                    <font size="2" face="Trebuchet MS"><input type="text" size="70" name="DateEpoch" value="" style="FONT-FAMILY: Trebuchet MS"></font>
-                                </td>
-
-
-                            </tr>
-
-                            <tr>
-                                <td valign="top">
-                                    <font size="2" face="Trebuchet MS">Time elepsed since epoch</font>
-                                </td>
-                                <td valign="top">
-                                    <font size="2" face="Trebuchet MS">hh:mm:ss</font>
+                                    <font size="2"></font>
                                 </td>
 
                                 <td valign="top" bgcolor="#FFFFFF">
-                                    <font size="2" face="Trebuchet MS"><input type="text" size="50" name="TimeElepsedSinceEpoch" value="" style="FONT-FAMILY: Trebuchet MS"></font>
-                                </td>
-
-
-                            </tr>
-                            <tr>
-                                <td valign="top">
-                                    <font size="2" face="Trebuchet MS">TLE data and time format</font>
-                                </td>
-                                <td valign="top">
-                                    <font size="2" face="Trebuchet MS"></font>
-                                </td>
-
-                                <td valign="top">
-                                    <font size="2" face="Trebuchet MS"><input type="text" size="20" name="TimeEpochFormat" style="FONT-FAMILY: Trebuchet MS"></font>
-                                </td>
-
-
-                            </tr>
-                            <tr>
-                                <td valign="top">
-                                    <font size="2" face="Trebuchet MS">Julian Day</font>
-                                </td>
-                                <td valign="top">
-                                    <font size="2" face="Trebuchet MS"></font>
-                                </td>
-
-                                <td valign="top">
-                                    <font size="2" face="Trebuchet MS"><input type="text" size="20" name="JulianDay" style="FONT-FAMILY: Trebuchet MS"></font>
-                                </td>
-
-
-                            </tr>
-                            <tr>
-                                <td valign="top">
-                                    <font size="2" face="Trebuchet MS">Modified Julian Day</font>
-                                </td>
-                                <td valign="top">
-                                    <font size="2" face="Trebuchet MS"></font>
-                                </td>
-
-                                <td valign="top">
-                                    <font size="2" face="Trebuchet MS"><input type="text" size="20" name="ModifiedJulianDay" style="FONT-FAMILY: Trebuchet MS"></font>
-                                </td>
-
-
-                            </tr>
-                            <tr>
-                                <td valign="top">
-                                    <font size="2" face="Trebuchet MS">Days since J2000.0</font>
-                                </td>
-                                <td valign="top">
-                                    <font size="2" face="Trebuchet MS"></font>
-                                </td>
-
-                                <td valign="top">
-                                    <font size="2" face="Trebuchet MS"><input type="text" size="20" name="dJ2000" style="FONT-FAMILY: Trebuchet MS"></font>
+                                    <font size="2"><input type="text" size="70" name="DateEpoch" value=""></font>
                                 </td>
 
 
@@ -278,14 +221,70 @@
 
                             <tr>
                                 <td valign="top">
-                                    <font size="2" face="Trebuchet MS">Day</font>
+                                    <font size="2">Time elepsed since epoch</font>
                                 </td>
                                 <td valign="top">
-                                    <font size="2" face="Trebuchet MS"></font>
+                                    <font size="2">hh:mm:ss</font>
                                 </td>
 
                                 <td valign="top" bgcolor="#FFFFFF">
-                                    <font size="2" face="Trebuchet MS"><input type="text" size="2" name="DayNow" value="1" style="FONT-FAMILY: Trebuchet MS" onchange="ManualTimeUpdate()"></font>
+                                    <font size="2"><input type="text" size="50" name="TimeElepsedSinceEpoch" value=""></font>
+                                </td>
+
+
+                            </tr>
+                            <tr>
+                                <td valign="top">
+                                    <font size="2">TLE data and time format</font>
+                                </td>
+                                <td valign="top">
+                                    <font size="2"></font>
+                                </td>
+
+                                <td valign="top">
+                                    <font size="2"><input type="text" size="20" name="TimeEpochFormat"></font>
+                                </td>
+
+
+                            </tr>
+                            <tr>
+                                <td valign="top">
+                                    <font size="2">Julian Day</font>
+                                </td>
+                                <td valign="top">
+                                    <font size="2"></font>
+                                </td>
+
+                                <td valign="top">
+                                    <font size="2"><input type="text" size="20" name="JulianDay"></font>
+                                </td>
+
+
+                            </tr>
+                            <tr>
+                                <td valign="top">
+                                    <font size="2">Modified Julian Day</font>
+                                </td>
+                                <td valign="top">
+                                    <font size="2"></font>
+                                </td>
+
+                                <td valign="top">
+                                    <font size="2"><input type="text" size="20" name="ModifiedJulianDay"></font>
+                                </td>
+
+
+                            </tr>
+                            <tr>
+                                <td valign="top">
+                                    <font size="2">Days since J2000.0</font>
+                                </td>
+                                <td valign="top">
+                                    <font size="2"></font>
+                                </td>
+
+                                <td valign="top">
+                                    <font size="2"><input type="text" size="20" name="dJ2000"></font>
                                 </td>
 
 
@@ -293,74 +292,14 @@
 
                             <tr>
                                 <td valign="top">
-                                    <font size="2" face="Trebuchet MS">Month</font>
+                                    <font size="2">Day</font>
                                 </td>
                                 <td valign="top">
-                                    <font size="2" face="Trebuchet MS"></font>
-                                </td>
-
-                                <td valign="top" bgcolor="#FFFFFF">
-                                    <font size="2" face="Trebuchet MS"><input type="text" size="2" name="MonthNow" value="10" style="FONT-FAMILY: Trebuchet MS" onchange="ManualTimeUpdate()"></font>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td valign="top">
-                                    <font size="2" face="Trebuchet MS">Year</font>
-                                </td>
-                                <td valign="top">
-                                    <font size="2" face="Trebuchet MS"></font>
-                                </td>
-
-                                <td valign="top" bgcolor="#FFFFFF">
-                                    <font size="2" face="Trebuchet MS"><input type="text" size="4" name="YearNow" style="FONT-FAMILY: Trebuchet MS" onchange="ManualTimeUpdate()"></font>
-                                </td>
-
-
-                            </tr>
-
-
-
-                            <tr>
-                                <td valign="top">
-                                    <font size="2" face="Trebuchet MS">Hour</font>
-                                </td>
-                                <td valign="top">
-                                    <font size="2" face="Trebuchet MS"></font>
-                                </td>
-
-                                <td valign="top" bgcolor="#FFFFFF">
-                                    <font size="2" face="Trebuchet MS"><input type="text" size="4" name="HourNow" value="00" style="FONT-FAMILY: Trebuchet MS" onchange="ManualTimeUpdate()">(UTC)
-                                        <input onclick="onchange_satellite_rev_siderealday();TimeUpdateNow()" type=button value="Get UTC time now" name=button3 style="FONT-FAMILY: Trebuchet MS"></font>
-                                </td>
-
-
-                            </tr>
-
-                            <tr>
-                                <td valign="top">
-                                    <font size="2" face="Trebuchet MS">Minute</font>
-                                </td>
-                                <td valign="top">
-                                    <font size="2" face="Trebuchet MS"></font>
-                                </td>
-
-                                <td valign="top" bgcolor="#FFFFFF">
-                                    <font size="2" face="Trebuchet MS"><input type="text" size="4" name="MinuteNow" value="" style="FONT-FAMILY: Trebuchet MS" onchange="ManualTimeUpdate()">(UTC)</font>
-                                </td>
-
-
-                            </tr>
-
-                            <tr>
-                                <td valign="top">
-                                    <font size="2" face="Trebuchet MS">Second</font>
-                                </td>
-                                <td valign="top">
-                                    <font size="2" face="Trebuchet MS"></font>
+                                    <font size="2"></font>
                                 </td>
 
                                 <td valign="top" bgcolor="#FFFFFF">
-                                    <font size="2" face="Trebuchet MS"><input type="text" size="4" name="SecondNow" value="" style="FONT-FAMILY: Trebuchet MS" onchange="ManualTimeUpdate()">(UTC)</font>
+                                    <font size="2"><input type="text" size="2" name="DayNow" value="1" onchange="ManualTimeUpdate()"></font>
                                 </td>
 
 
@@ -368,88 +307,74 @@
 
                             <tr>
                                 <td valign="top">
-                                    <font size="2" face="Trebuchet MS">Time of calculation</font>
+                                    <font size="2">Month</font>
                                 </td>
                                 <td valign="top">
-                                    <font size="2" face="Trebuchet MS">Local time <br>(if offset from UTC)</font>
-                                </td>
-
-                                <td valign="top">
-                                    <font size="2" face="Trebuchet MS"><input type="text" size="70" name="TimeOfCalculation" value="" style="FONT-FAMILY: Trebuchet MS"></font>
-                                </td>
-
-
-                            </tr>
-
-                            <tr>
-                                <td valign="top">
-                                    <font size="2" face="Trebuchet MS">Satellite common name</font>
-                                </td>
-                                <td valign="top">
-                                    <font size="2" face="Trebuchet MS"></font>
+                                    <font size="2"></font>
                                 </td>
 
                                 <td valign="top" bgcolor="#FFFFFF">
-                                    <font size="2" face="Trebuchet MS"><input type="text" size="14" name="CommonName" value="" style="FONT-FAMILY: Trebuchet MS">from TLE</font>
+                                    <font size="2"><input type="text" size="2" name="MonthNow" value="10" onchange="ManualTimeUpdate()"></font>
                                 </td>
-
-
                             </tr>
                             <tr>
                                 <td valign="top">
-                                    <font size="2" face="Trebuchet MS">Object Id</font>
+                                    <font size="2">Year</font>
                                 </td>
                                 <td valign="top">
-                                    <font size="2" face="Trebuchet MS"></font>
+                                    <font size="2"></font>
                                 </td>
 
                                 <td valign="top" bgcolor="#FFFFFF">
-                                    <font size="2" face="Trebuchet MS"><input type="text" size="14" name="ObjectID" value="" style="FONT-FAMILY: Trebuchet MS">from TLE</font>
+                                    <font size="2"><input type="text" size="4" name="YearNow" onchange="ManualTimeUpdate()"></font>
                                 </td>
 
 
                             </tr>
+
+
+
                             <tr>
                                 <td valign="top">
-                                    <font size="2" face="Trebuchet MS">International Designator</font>
+                                    <font size="2">Hour</font>
                                 </td>
                                 <td valign="top">
-                                    <font size="2" face="Trebuchet MS"></font>
+                                    <font size="2"></font>
                                 </td>
 
                                 <td valign="top" bgcolor="#FFFFFF">
-                                    <font size="2" face="Trebuchet MS"><input type="text" size="14" name="InternationalDesignator" value="" style="FONT-FAMILY: Trebuchet MS">from TLE
-                                    </font>
+                                    <font size="2"><input type="text" size="4" name="HourNow" value="00" onchange="ManualTimeUpdate()">(UTC)
+                                        <input onclick="onchange_satellite_rev_siderealday();TimeUpdateNow()" type=button value="Get UTC time now" name=button3></font>
                                 </td>
 
 
                             </tr>
+
                             <tr>
                                 <td valign="top">
-                                    <font size="2" face="Trebuchet MS">Elset Classification</font>
+                                    <font size="2">Minute</font>
                                 </td>
                                 <td valign="top">
-                                    <font size="2" face="Trebuchet MS"></font>
+                                    <font size="2"></font>
                                 </td>
 
                                 <td valign="top" bgcolor="#FFFFFF">
-                                    <font size="2" face="Trebuchet MS"><input type="text" size="14" name="ElsetClassification" value="" style="FONT-FAMILY: Trebuchet MS">from TLE
-                                    </font>
+                                    <font size="2"><input type="text" size="4" name="MinuteNow" value="" onchange="ManualTimeUpdate()">(UTC)</font>
                                 </td>
 
 
                             </tr>
+
                             <tr>
                                 <td valign="top">
-                                    <font size="2" face="Trebuchet MS">Number of orbits at Epoch</font>
+                                    <font size="2">Second</font>
                                 </td>
                                 <td valign="top">
-                                    <font size="2" face="Trebuchet MS"></font>
+                                    <font size="2"></font>
                                 </td>
 
                                 <td valign="top" bgcolor="#FFFFFF">
-                                    <font size="2" face="Trebuchet MS"><input type="text" size="14" name="NumberOfOrbitsAtEpoch" value="" style="FONT-FAMILY: Trebuchet MS">from TLE
-                                    </font>
+                                    <font size="2"><input type="text" size="4" name="SecondNow" value="" onchange="ManualTimeUpdate()">(UTC)</font>
                                 </td>
 
 
@@ -457,31 +382,14 @@
 
                             <tr>
                                 <td valign="top">
-                                    <font size="2" face="Trebuchet MS">Number of orbits now</font>
+                                    <font size="2">Time of calculation</font>
                                 </td>
                                 <td valign="top">
-                                    <font size="2" face="Trebuchet MS"></font>
-                                </td>
-
-                                <td valign="top">
-                                    <font size="2" face="Trebuchet MS"> <input type="text" size="14" name="NumberOfOrbitsNow" value="" style="FONT-FAMILY: Trebuchet MS">
-                                    </font>
-                                </td>
-
-
-                            </tr>
-
-                            <tr>
-                                <td valign="top">
-                                    <font size="2" face="Trebuchet MS">Earth Rev/solarday</font>
-                                </td>
-                                <td valign="top">
-                                    <font size="2" face="Trebuchet MS">rev/day</font>
+                                    <font size="2">Local time <br>(if offset from UTC)</font>
                                 </td>
 
                                 <td valign="top">
-                                    <font size="2" face="Trebuchet MS"> <input type="text" size="14" name="Earth_rev_solar_day" value="" style="FONT-FAMILY: Trebuchet MS">
-                                    </font>
+                                    <font size="2"><input type="text" size="70" name="TimeOfCalculation" value=""></font>
                                 </td>
 
 
@@ -489,292 +397,266 @@
 
                             <tr>
                                 <td valign="top">
-                                    <font size="2" face="Trebuchet MS">Earth Deg/solarday</font>
+                                    <font size="2">Satellite common name</font>
                                 </td>
                                 <td valign="top">
-                                    <font size="2" face="Trebuchet MS">deg/day</font>
-                                </td>
-
-                                <td valign="top">
-                                    <font size="2" face="Trebuchet MS"> <input type="text" size="14" name="Earth_deg_solar_day" value="" style="FONT-FAMILY: Trebuchet MS">
-                                    </font>
-                                </td>
-
-
-                            </tr>
-
-
-                            </tr>
-
-                            <tr>
-                                <td valign="top">
-                                    <font size="2" face="Trebuchet MS">Earth Rev/siderealday</font>
-                                </td>
-                                <td valign="top">
-                                    <font size="2" face="Trebuchet MS">rev/day</font>
-                                </td>
-
-                                <td valign="top">
-                                    <font size="2" face="Trebuchet MS"> <input type="text" size="14" name="Earth_rev_sidereal_day" value="" style="FONT-FAMILY: Trebuchet MS">
-                                    </font>
-                                </td>
-
-
-                            </tr>
-
-                            <tr>
-                                <td valign="top">
-                                    <font size="2" face="Trebuchet MS">Earth Deg/siderealday</font>
-                                </td>
-                                <td valign="top">
-                                    <font size="2" face="Trebuchet MS">deg/day</font>
-                                </td>
-
-                                <td valign="top">
-                                    <font size="2" face="Trebuchet MS"> <input type="text" size="14" name="Earth_deg_sidereal_day" value="" style="FONT-FAMILY: Trebuchet MS">
-                                    </font>
-                                </td>
-
-
-                            </tr>
-
-                            <tr>
-                                <td valign="top">
-                                    <font size="2" face="Trebuchet MS">Satellite Deg/siderealday</font>
-                                </td>
-                                <td valign="top">
-                                    <font size="2" face="Trebuchet MS">deg/day</font>
-                                </td>
-
-                                <td valign="top">
-                                    <font size="2" face="Trebuchet MS"> <input type="text" size="14" name="Satellite_deg_sidereal_day" value="" style="FONT-FAMILY: Trebuchet MS">
-                                    </font>
-                                </td>
-
-
-                            </tr>
-
-                            <tr>
-                                <td valign="top">
-                                    <font size="2" face="Trebuchet MS">Satellite Rev/sidereal</font>
-                                </td>
-                                <td valign="top">
-                                    <font size="2" face="Trebuchet MS">rev/day</font>
-                                </td>
-
-                                <td valign="top">
-                                    <font size="2" face="Trebuchet MS"><input type="text" size="14" name="Satellite_rev_solar_day" onchange="onchange_satellite_rev_solarday();calculatedriftrate()" value="" style="FONT-FAMILY: Trebuchet MS">(calculated for the time selected)
-                                    </font>
-                                </td>
-
-
-                            </tr>
-
-
-
-                            <tr>
-                                <td valign="top">
-                                    <font size="2" face="Trebuchet MS">Satellite Deg/solarday</font>
-                                </td>
-                                <td valign="top">
-                                    <font size="2" face="Trebuchet MS">deg/day</font>
-                                </td>
-
-                                <td valign="top">
-                                    <font size="2" face="Trebuchet MS"><input type="text" size="14" name="Satellite_deg_solar_day" value="" style="FONT-FAMILY: Trebuchet MS">
-                                    </font>
-                                </td>
-
-
-                            </tr>
-                            <tr>
-                                <td valign="top">
-                                    <font size="2" face="Trebuchet MS">Epoch</font>
-                                </td>
-                                <td valign="top">
-                                    <font size="2" face="Trebuchet MS"></font>
-                                </td>
-
-                                <td valign="top">
-                                    <font size="2" face="Trebuchet MS"><input type="text" size="14" name="Epoch" style="FONT-FAMILY: Trebuchet MS">from TLE
-                                    </font>
-                                </td>
-
-
-                            </tr>
-
-                            <tr>
-                                <td valign="top">
-                                    <font size="2" face="Trebuchet MS">Inclination</font>
-                                </td>
-                                <td valign="top">
-                                    <font size="2" face="Trebuchet MS">deg</font>
+                                    <font size="2"></font>
                                 </td>
 
                                 <td valign="top" bgcolor="#FFFFFF">
-                                    <font size="2" face="Trebuchet MS"><input type="text" size="14" name="Inclination" style="FONT-FAMILY: Trebuchet MS">from TLE
-                                    </font>
+                                    <font size="2"><input type="text" size="14" name="CommonName" value="">from TLE</font>
                                 </td>
 
 
                             </tr>
-
                             <tr>
                                 <td valign="top">
-                                    <font size="2" face="Trebuchet MS">Right Ascension of Ascending node</font>
+                                    <font size="2">Object Id</font>
                                 </td>
                                 <td valign="top">
-                                    <font size="2" face="Trebuchet MS">deg</font>
+                                    <font size="2"></font>
                                 </td>
 
                                 <td valign="top" bgcolor="#FFFFFF">
-                                    <font size="2" face="Trebuchet MS"><input type="text" size="14" name="RA_AN" style="FONT-FAMILY: Trebuchet MS">from TLE
-                                    </font>
+                                    <font size="2"><input type="text" size="14" name="ObjectID" value="">from TLE</font>
                                 </td>
-                            </tr>
 
+
+                            </tr>
                             <tr>
                                 <td valign="top">
-                                    <font size="2" face="Trebuchet MS">Eccentricity</font>
+                                    <font size="2">International Designator</font>
                                 </td>
                                 <td valign="top">
-                                    <font size="2" face="Trebuchet MS"></font>
+                                    <font size="2"></font>
                                 </td>
 
                                 <td valign="top" bgcolor="#FFFFFF">
-                                    <font size="2" face="Trebuchet MS"><input type="text" size="14" name="Eccentricity" style="FONT-FAMILY: Trebuchet MS">from TLE
+                                    <font size="2"><input type="text" size="14" name="InternationalDesignator" value="">from TLE
                                     </font>
                                 </td>
+
+
                             </tr>
-
-
                             <tr>
                                 <td valign="top">
-                                    <font size="2" face="Trebuchet MS">Argument of perigee </font>
+                                    <font size="2">Elset Classification</font>
                                 </td>
                                 <td valign="top">
-                                    <font size="2" face="Trebuchet MS">deg</font>
+                                    <font size="2"></font>
                                 </td>
 
                                 <td valign="top" bgcolor="#FFFFFF">
-                                    <font size="2" face="Trebuchet MS"><input type="text" size="14" name="Argument_of_perigee" style="FONT-FAMILY: Trebuchet MS">from TLE
+                                    <font size="2"><input type="text" size="14" name="ElsetClassification" value="">from TLE
                                     </font>
                                 </td>
-                            </tr>
 
+
+                            </tr>
                             <tr>
                                 <td valign="top">
-                                    <font size="2" face="Trebuchet MS">Mean anomaly, M0</font>
+                                    <font size="2">Number of orbits at Epoch</font>
                                 </td>
                                 <td valign="top">
-                                    <font size="2" face="Trebuchet MS">deg</font>
+                                    <font size="2"></font>
                                 </td>
 
                                 <td valign="top" bgcolor="#FFFFFF">
-                                    <font size="2" face="Trebuchet MS"><input type="text" size="14" name="Meananomaly" style="FONT-FAMILY: Trebuchet MS">at reference time (from TLE)
+                                    <font size="2"><input type="text" size="14" name="NumberOfOrbitsAtEpoch" value="">from TLE
                                     </font>
                                 </td>
+
+
                             </tr>
 
                             <tr>
                                 <td valign="top">
-                                    <font size="2" face="Trebuchet MS">Mean anomaly Calculated</font>
+                                    <font size="2">Number of orbits now</font>
                                 </td>
                                 <td valign="top">
-                                    <font size="2" face="Trebuchet MS">deg</font>
+                                    <font size="2"></font>
                                 </td>
 
                                 <td valign="top">
-                                    <font size="2" face="Trebuchet MS"><input type="text" size="14" name="MeananomalyCalculated" value="" style="FONT-FAMILY: Trebuchet MS">calculated for time selected
+                                    <font size="2"> <input type="text" size="14" name="NumberOfOrbitsNow" value="">
                                     </font>
                                 </td>
+
+
                             </tr>
 
                             <tr>
                                 <td valign="top">
-                                    <font size="2" face="Trebuchet MS">True anomaly (v)</font>
+                                    <font size="2">Earth Rev/solarday</font>
                                 </td>
                                 <td valign="top">
-                                    <font size="2" face="Trebuchet MS">deg</font>
+                                    <font size="2">rev/day</font>
                                 </td>
 
                                 <td valign="top">
-                                    <font size="2" face="Trebuchet MS"><input type="text" size="19" name="Trueanomaly" style="FONT-FAMILY: Trebuchet MS">
+                                    <font size="2"> <input type="text" size="14" name="Earth_rev_solar_day" value="">
                                     </font>
                                 </td>
+
+
                             </tr>
 
                             <tr>
                                 <td valign="top">
-                                    <font size="2" face="Trebuchet MS">Mean Motion from TLE data</font>
+                                    <font size="2">Earth Deg/solarday</font>
                                 </td>
                                 <td valign="top">
-                                    <font size="2" face="Trebuchet MS">rev/day (Satellite Rev/solarday)</font>
+                                    <font size="2">deg/day</font>
+                                </td>
+
+                                <td valign="top">
+                                    <font size="2"> <input type="text" size="14" name="Earth_deg_solar_day" value="">
+                                    </font>
+                                </td>
+
+
+                            </tr>
+
+
+                            </tr>
+
+                            <tr>
+                                <td valign="top">
+                                    <font size="2">Earth Rev/siderealday</font>
+                                </td>
+                                <td valign="top">
+                                    <font size="2">rev/day</font>
+                                </td>
+
+                                <td valign="top">
+                                    <font size="2"> <input type="text" size="14" name="Earth_rev_sidereal_day" value="">
+                                    </font>
+                                </td>
+
+
+                            </tr>
+
+                            <tr>
+                                <td valign="top">
+                                    <font size="2">Earth Deg/siderealday</font>
+                                </td>
+                                <td valign="top">
+                                    <font size="2">deg/day</font>
+                                </td>
+
+                                <td valign="top">
+                                    <font size="2"> <input type="text" size="14" name="Earth_deg_sidereal_day" value="">
+                                    </font>
+                                </td>
+
+
+                            </tr>
+
+                            <tr>
+                                <td valign="top">
+                                    <font size="2">Satellite Deg/siderealday</font>
+                                </td>
+                                <td valign="top">
+                                    <font size="2">deg/day</font>
+                                </td>
+
+                                <td valign="top">
+                                    <font size="2"> <input type="text" size="14" name="Satellite_deg_sidereal_day" value="">
+                                    </font>
+                                </td>
+
+
+                            </tr>
+
+                            <tr>
+                                <td valign="top">
+                                    <font size="2">Satellite Rev/sidereal</font>
+                                </td>
+                                <td valign="top">
+                                    <font size="2">rev/day</font>
+                                </td>
+
+                                <td valign="top">
+                                    <font size="2"><input type="text" size="14" name="Satellite_rev_solar_day" onchange="onchange_satellite_rev_solarday();calculatedriftrate()" value="">(calculated for the time selected)
+                                    </font>
+                                </td>
+
+
+                            </tr>
+
+
+
+                            <tr>
+                                <td valign="top">
+                                    <font size="2">Satellite Deg/solarday</font>
+                                </td>
+                                <td valign="top">
+                                    <font size="2">deg/day</font>
+                                </td>
+
+                                <td valign="top">
+                                    <font size="2"><input type="text" size="14" name="Satellite_deg_solar_day" value="">
+                                    </font>
+                                </td>
+
+
+                            </tr>
+                            <tr>
+                                <td valign="top">
+                                    <font size="2">Epoch</font>
+                                </td>
+                                <td valign="top">
+                                    <font size="2"></font>
+                                </td>
+
+                                <td valign="top">
+                                    <font size="2"><input type="text" size="14" name="Epoch">from TLE
+                                    </font>
+                                </td>
+
+
+                            </tr>
+
+                            <tr>
+                                <td valign="top">
+                                    <font size="2">Inclination</font>
+                                </td>
+                                <td valign="top">
+                                    <font size="2">deg</font>
                                 </td>
 
                                 <td valign="top" bgcolor="#FFFFFF">
-                                    <font size="2" face="Trebuchet MS"><input type="text" size="14" name="Satellite_rev_sidereal_day" style="FONT-FAMILY: Trebuchet MS">from TLE
-                                    </font>
-                                </td>
-                            </tr>
-
-
-
-                            <tr>
-                                <td valign="top">
-                                    <font size="2" face="Trebuchet MS">Current Motion</font>
-                                </td>
-                                <td valign="top">
-                                    <font size="2" face="Trebuchet MS">rev/day</font>
-                                </td>
-
-                                <td valign="top">
-                                    <font size="2" face="Trebuchet MS"><input type="text" size="14" name="Current_Motion" onchange="onchange_satellite_rev_solarday();calculatedriftrate()" value="" style="FONT-FAMILY: Trebuchet MS">
+                                    <font size="2"><input type="text" size="14" name="Inclination">from TLE
                                     </font>
                                 </td>
 
 
                             </tr>
 
-
                             <tr>
                                 <td valign="top">
-                                    <font size="2" face="Trebuchet MS">1st derative of the Mean Motion</font>
+                                    <font size="2">Right Ascension of Ascending node</font>
                                 </td>
                                 <td valign="top">
-                                    <font size="2" face="Trebuchet MS">rev/day^2</font>
+                                    <font size="2">deg</font>
                                 </td>
 
                                 <td valign="top" bgcolor="#FFFFFF">
-                                    <font size="2" face="Trebuchet MS"><input type="text" size="14" name="first_derative_mean_motion" style="FONT-FAMILY: Trebuchet MS">from TLE
+                                    <font size="2"><input type="text" size="14" name="RA_AN">from TLE
                                     </font>
                                 </td>
                             </tr>
 
                             <tr>
                                 <td valign="top">
-                                    <font size="2" face="Trebuchet MS">Eccentric anomaly before iterations</font>
+                                    <font size="2">Eccentricity</font>
                                 </td>
                                 <td valign="top">
-                                    <font size="2" face="Trebuchet MS">deg</font>
-                                </td>
-
-                                <td valign="top">
-                                    <font size="2" face="Trebuchet MS"><input type="text" size="14" name="EccentricanomalyBeforeIterations" value="" style="FONT-FAMILY: Trebuchet MS">
-                                    </font>
-                                </td>
-                            </tr>
-
-                            <tr>
-                                <td valign="top">
-                                    <font size="2" face="Trebuchet MS">Eccentric anomaly error before iterations</font>
-                                </td>
-                                <td valign="top">
-                                    <font size="2" face="Trebuchet MS">deg</font>
+                                    <font size="2"></font>
                                 </td>
 
-                                <td valign="top">
-                                    <font size="2" face="Trebuchet MS"><input type="text" size="50" name="EccentricanomalyErrorBeforeIterations" value="" style="FONT-FAMILY: Trebuchet MS">
+                                <td valign="top" bgcolor="#FFFFFF">
+                                    <font size="2"><input type="text" size="14" name="Eccentricity">from TLE
                                     </font>
                                 </td>
                             </tr>
@@ -782,28 +664,70 @@
 
                             <tr>
                                 <td valign="top">
-                                    <font size="2" face="Trebuchet MS">Eccentric anomaly after iterations</font>
+                                    <font size="2">Argument of perigee </font>
                                 </td>
                                 <td valign="top">
-                                    <font size="2" face="Trebuchet MS">deg</font>
+                                    <font size="2">deg</font>
                                 </td>
 
-                                <td valign="top">
-                                    <font size="2" face="Trebuchet MS"><input type="text" size="14" name="EccentricanomalyAfterIterations" value="" style="FONT-FAMILY: Trebuchet MS">
+                                <td valign="top" bgcolor="#FFFFFF">
+                                    <font size="2"><input type="text" size="14" name="Argument_of_perigee">from TLE
                                     </font>
                                 </td>
                             </tr>
 
                             <tr>
                                 <td valign="top">
-                                    <font size="2" face="Trebuchet MS">Eccentric anomaly error after iterations</font>
+                                    <font size="2">Mean anomaly, M0</font>
                                 </td>
                                 <td valign="top">
-                                    <font size="2" face="Trebuchet MS">deg</font>
+                                    <font size="2">deg</font>
+                                </td>
+
+                                <td valign="top" bgcolor="#FFFFFF">
+                                    <font size="2"><input type="text" size="14" name="Meananomaly">at reference time (from TLE)
+                                    </font>
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td valign="top">
+                                    <font size="2">Mean anomaly Calculated</font>
+                                </td>
+                                <td valign="top">
+                                    <font size="2">deg</font>
                                 </td>
 
                                 <td valign="top">
-                                    <font size="2" face="Trebuchet MS"><input type="text" size="50" name="EccentricanomalyErrorAfterIterations" value="" style="FONT-FAMILY: Trebuchet MS">
+                                    <font size="2"><input type="text" size="14" name="MeananomalyCalculated" value="">calculated for time selected
+                                    </font>
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td valign="top">
+                                    <font size="2">True anomaly (v)</font>
+                                </td>
+                                <td valign="top">
+                                    <font size="2">deg</font>
+                                </td>
+
+                                <td valign="top">
+                                    <font size="2"><input type="text" size="19" name="Trueanomaly">
+                                    </font>
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td valign="top">
+                                    <font size="2">Mean Motion from TLE data</font>
+                                </td>
+                                <td valign="top">
+                                    <font size="2">rev/day (Satellite Rev/solarday)</font>
+                                </td>
+
+                                <td valign="top" bgcolor="#FFFFFF">
+                                    <font size="2"><input type="text" size="14" name="Satellite_rev_sidereal_day">from TLE
                                     </font>
                                 </td>
                             </tr>
@@ -812,377 +736,59 @@
 
                             <tr>
                                 <td valign="top">
-                                    <font size="2" face="Trebuchet MS">Number of eccentric anomaly iterations</font>
+                                    <font size="2">Current Motion</font>
                                 </td>
                                 <td valign="top">
-                                    <font size="2" face="Trebuchet MS"></font>
+                                    <font size="2">rev/day</font>
                                 </td>
 
                                 <td valign="top">
-                                    <font size="2" face="Trebuchet MS"><input type="text" size="14" name="Iterations" value="" style="FONT-FAMILY: Trebuchet MS">
+                                    <font size="2"><input type="text" size="14" name="Current_Motion" onchange="onchange_satellite_rev_solarday();calculatedriftrate()" value="">
+                                    </font>
+                                </td>
+
+
+                            </tr>
+
+
+                            <tr>
+                                <td valign="top">
+                                    <font size="2">1st derative of the Mean Motion</font>
+                                </td>
+                                <td valign="top">
+                                    <font size="2">rev/day^2</font>
+                                </td>
+
+                                <td valign="top" bgcolor="#FFFFFF">
+                                    <font size="2"><input type="text" size="14" name="first_derative_mean_motion">from TLE
                                     </font>
                                 </td>
                             </tr>
 
                             <tr>
                                 <td valign="top">
-                                    <font size="2" face="Trebuchet MS">Xo orbital plane</font>
+                                    <font size="2">Eccentric anomaly before iterations</font>
                                 </td>
                                 <td valign="top">
-                                    <font size="2" face="Trebuchet MS">km</font>
+                                    <font size="2">deg</font>
                                 </td>
 
                                 <td valign="top">
-                                    <font size="2" face="Trebuchet MS"><input type="text" size="14" name="X_orbit_plane" value="" style="FONT-FAMILY: Trebuchet MS">
+                                    <font size="2"><input type="text" size="14" name="EccentricanomalyBeforeIterations" value="">
                                     </font>
                                 </td>
                             </tr>
 
                             <tr>
                                 <td valign="top">
-                                    <font size="2" face="Trebuchet MS">Yo orbital plane</font>
+                                    <font size="2">Eccentric anomaly error before iterations</font>
                                 </td>
                                 <td valign="top">
-                                    <font size="2" face="Trebuchet MS">km</font>
-                                </td>
-
-                                <td valign="top">
-                                    <font size="2" face="Trebuchet MS"><input type="text" size="14" name="Y_orbit_plane" value="" style="FONT-FAMILY: Trebuchet MS">
-                                    </font>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td valign="top">
-                                    <font size="2" face="Trebuchet MS">r orbital plane</font>
-                                </td>
-                                <td valign="top">
-                                    <font size="2" face="Trebuchet MS">km</font>
+                                    <font size="2">deg</font>
                                 </td>
 
                                 <td valign="top">
-                                    <font size="2" face="Trebuchet MS"><input type="text" size="14" name="r_orbit_plane" value="" style="FONT-FAMILY: Trebuchet MS">
-                                    </font>
-                                </td>
-                            </tr>
-
-                            <tr>
-                                <td valign="top">
-                                    <font size="2" face="Trebuchet MS">Geocentric, x</font>
-                                </td>
-                                <td valign="top">
-                                    <font size="2" face="Trebuchet MS">km</font>
-                                </td>
-
-                                <td valign="top">
-                                    <font size="2" face="Trebuchet MS"><input type="text" size="14" name="x_geocentric" value="" style="FONT-FAMILY: Trebuchet MS">
-                                    </font>
-                                </td>
-                            </tr>
-
-                            <tr>
-                                <td valign="top">
-                                    <font size="2" face="Trebuchet MS">Geocentric, y</font>
-                                </td>
-                                <td valign="top">
-                                    <font size="2" face="Trebuchet MS">km</font>
-                                </td>
-
-                                <td valign="top">
-                                    <font size="2" face="Trebuchet MS"><input type="text" size="14" name="y_geocentric" value="" style="FONT-FAMILY: Trebuchet MS">
-                                    </font>
-                                </td>
-                            </tr>
-
-                            <tr>
-                                <td valign="top">
-                                    <font size="2" face="Trebuchet MS">Geocentric, z</font>
-                                </td>
-                                <td valign="top">
-                                    <font size="2" face="Trebuchet MS">km from equator</font>
-                                </td>
-
-                                <td valign="top">
-                                    <font size="2" face="Trebuchet MS"><input type="text" size="14" name="z_geocentric" value="" style="FONT-FAMILY: Trebuchet MS">
-                                    </font>
-                                </td>
-                            </tr>
-
-                            <tr>
-                                <td valign="top">
-                                    <font size="2" face="Trebuchet MS">Right Ascension</font>
-                                </td>
-                                <td valign="top">
-                                    <font size="2" face="Trebuchet MS">deg</font>
-                                </td>
-
-                                <td valign="top">
-                                    <font size="2" face="Trebuchet MS"><input type="text" size="64" name="RA" value="" style="FONT-FAMILY: Trebuchet MS">
-                                    </font>
-                                </td>
-                            </tr>
-
-                            <tr>
-                                <td valign="top">
-                                    <font size="2" face="Trebuchet MS">GMST</font>
-                                </td>
-                                <td valign="top">
-                                    <font size="2" face="Trebuchet MS">deg</font>
-                                </td>
-
-                                <td valign="top">
-                                    <font size="2" face="Trebuchet MS"><input type="text" size="14" name="GMST" value="" style="FONT-FAMILY: Trebuchet MS"><input type="text" size="14" name="GMST2" value="" style="FONT-FAMILY: Trebuchet MS">
-                                    </font>
-                                </td>
-                            </tr>
-
-                            <tr>
-                                <td valign="top">
-                                    <font size="2" face="Trebuchet MS">Declination</font>
-                                </td>
-                                <td valign="top">
-                                    <font size="2" face="Trebuchet MS">deg (current inclination)</font>
-                                </td>
-
-                                <td valign="top">
-                                    <font size="2" face="Trebuchet MS"><input type="text" size="64" name="declination" value="" style="FONT-FAMILY: Trebuchet MS">
-                                    </font>
-                                </td>
-                            </tr>
-
-                            <tr>
-                                <td valign="top">
-                                    <font size="2" face="Trebuchet MS">Satellite E/W oscillation caused by inclination</font>
-                                </td>
-                                <td valign="top">
-                                    <font size="2" face="Trebuchet MS">deg</font>
-                                </td>
-
-                                <td valign="top">
-                                    <font size="2" face="Trebuchet MS"><input type="text" size="14" name="EW_oscillation_caused_by_inclination" value="" style="FONT-FAMILY: Trebuchet MS">
-                                    </font>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td valign="top">
-                                    <font size="2" face="Trebuchet MS">Satellite E/W oscillation caused by eccentricity</font>
-                                </td>
-                                <td valign="top">
-                                    <font size="2" face="Trebuchet MS">deg</font>
-                                </td>
-
-                                <td valign="top">
-                                    <font size="2" face="Trebuchet MS"><input type="text" size="14" name="EW_oscillation_caused_by_eccentricity" value="" style="FONT-FAMILY: Trebuchet MS">
-                                    </font>
-                                </td>
-                            </tr>
-
-                            <tr>
-                                <td valign="top">
-                                    <font size="2" face="Trebuchet MS">Current Driftrate</font>
-                                </td>
-                                <td valign="top">
-                                    <font size="2" face="Trebuchet MS">deg/day</font>
-                                </td>
-
-                                <td valign="top">
-                                    <font size="2" face="Trebuchet MS"><input type="text" size="14" name="Driftrate" value="" style="FONT-FAMILY: Trebuchet MS"><input type="text" size="14" name="Direction" value="" style="FONT-FAMILY: Trebuchet MS">
-                                    </font>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td valign="top">
-                                    <font size="2" face="Trebuchet MS">Average Driftrate</font>
-                                </td>
-                                <td valign="top">
-                                    <font size="2" face="Trebuchet MS">deg/day</font>
-                                </td>
-
-                                <td valign="top">
-                                    <font size="2" face="Trebuchet MS"><input type="text" size="14" name="AverageDriftrate" value="" style="FONT-FAMILY: Trebuchet MS"><input type="text" size="14" name="AverageDriftrateDirection" value="" style="FONT-FAMILY: Trebuchet MS">
-                                    </font>
-                                </td>
-                            </tr>
-
-                            <tr>
-                                <td valign="top">
-                                    <font size="2" face="Trebuchet MS">Longitude Driftrate</font>
-                                </td>
-                                <td valign="top">
-                                    <font size="2" face="Trebuchet MS">deg/day</font>
-                                </td>
-
-                                <td valign="top">
-                                    <font size="2" face="Trebuchet MS"><input type="text" size="14" name="LongitudeDriftrate" value="" style="FONT-FAMILY: Trebuchet MS"><input type="text" size="14" name="LongitudeDriftrateDirection" value="" style="FONT-FAMILY: Trebuchet MS">
-                                    </font>
-                                </td>
-                            </tr>
-
-                            <tr>
-                                <td valign="top">
-                                    <font size="2" face="Trebuchet MS">Longitude after 24hours</font>
-                                </td>
-                                <td valign="top">
-                                    <font size="2" face="Trebuchet MS">deg</font>
-                                </td>
-
-                                <td valign="top">
-                                    <font size="2" face="Trebuchet MS"><input type="text" size="34" name="LongitudeAfter24Hours" value="" style="FONT-FAMILY: Trebuchet MS">
-                                    </font>
-                                </td>
-                            </tr>
-
-                            <tr>
-                                <td valign="top">
-                                    <font size="2" face="Trebuchet MS">Altitude</font>
-                                </td>
-                                <td valign="top">
-                                    <font size="2" face="Trebuchet MS">km</font>
-                                </td>
-
-                                <td valign="top">
-                                    <font size="2" face="Trebuchet MS"><input type="text" size="14" name="Altitude" value="" style="FONT-FAMILY: Trebuchet MS"><br>from GEO now:
-                                        <input type="text" size="30" name="GeoAltitude" value="" style="FONT-FAMILY: Trebuchet MS"><br>Average from GEO:
-                                        <input type="text" size="30" name="AvrGeoAltitude" value="" style="FONT-FAMILY: Trebuchet MS">
-                                    </font>
-                                </td>
-                            </tr>
-
-                            <tr>
-                                <td valign="top">
-                                    <font size="2" face="Trebuchet MS">Altitude (Geodetic)</font>
-                                </td>
-                                <td valign="top">
-                                    <font size="2" face="Trebuchet MS">km</font>
-                                </td>
-
-                                <td valign="top">
-                                    <font size="2" face="Trebuchet MS"><input type="text" size="14" name="GeoDeticAltitude" value="" style="FONT-FAMILY: Trebuchet MS">
-                                    </font>
-                                </td>
-                            </tr>
-
-                            <tr>
-                                <td valign="top">
-                                    <font size="2" face="Trebuchet MS">Satellite period,TC</font>
-                                </td>
-                                <td valign="top">
-                                    <font size="2" face="Trebuchet MS">hh:mm:ss</font>
-                                </td>
-
-                                <td valign="top">
-                                    <font size="2" face="Trebuchet MS"><input type="text" size="14" name="TC" value="" style="FONT-FAMILY: Trebuchet MS">
-                                    </font>
-                                </td>
-                            </tr>
-
-                            <tr>
-                                <td valign="top">
-                                    <font size="2" face="Trebuchet MS">Nominal GEO period</font>
-                                </td>
-                                <td valign="top">
-                                    <font size="2" face="Trebuchet MS">hh:mm:ss</font>
-                                </td>
-
-                                <td valign="top">
-                                    <font size="2" face="Trebuchet MS"><input type="text" size="14" name="GeoTC" value="" style="FONT-FAMILY: Trebuchet MS">
-                                    </font>
-                                </td>
-                            </tr>
-
-                            <tr>
-                                <td valign="top">
-                                    <font size="2" face="Trebuchet MS">Satellite velocity</font>
-                                </td>
-                                <td valign="top">
-                                    <font size="2" face="Trebuchet MS">km/s</font>
-                                </td>
-
-                                <td valign="top">
-                                    <font size="2" face="Trebuchet MS"><input type="text" size="14" name="Velocity" value="" style="FONT-FAMILY: Trebuchet MS">
-                                    </font>
-                                </td>
-                            </tr>
-
-                            <tr>
-                                <td valign="top">
-                                    <font size="2" face="Trebuchet MS">Altitude at Perigee</font>
-                                </td>
-                                <td valign="top">
-                                    <font size="2" face="Trebuchet MS">km</font>
-                                </td>
-
-                                <td valign="top">
-                                    <font size="2" face="Trebuchet MS"><input type="text" size="14" name="Perigee" value="" style="FONT-FAMILY: Trebuchet MS">
-                                    </font>
-                                </td>
-                            </tr>
-
-                            <tr>
-                                <td valign="top">
-                                    <font size="2" face="Trebuchet MS">Altitude at Apogee</font>
-                                </td>
-                                <td valign="top">
-                                    <font size="2" face="Trebuchet MS">km</font>
-                                </td>
-
-                                <td valign="top">
-                                    <font size="2" face="Trebuchet MS"><input type="text" size="14" name="Apogee" value="" style="FONT-FAMILY: Trebuchet MS">
-                                    </font>
-                                </td>
-                            </tr>
-
-                            <tr>
-                                <td valign="top">
-                                    <font size="2" face="Trebuchet MS">Semi-Major-Axis</font>
-                                </td>
-                                <td valign="top">
-                                    <font size="2" face="Trebuchet MS">km</font>
-                                </td>
-
-                                <td valign="top">
-                                    <font size="2" face="Trebuchet MS"><input type="text" size="14" name="Semimajoraxis" value="" style="FONT-FAMILY: Trebuchet MS">
-                                    </font>
-                                </td>
-                            </tr>
-
-                            <tr>
-                                <td valign="top">
-                                    <font size="2" face="Trebuchet MS">Semi-Minor-Axis</font>
-                                </td>
-                                <td valign="top">
-                                    <font size="2" face="Trebuchet MS">km</font>
-                                </td>
-
-                                <td valign="top">
-                                    <font size="2" face="Trebuchet MS"><input type="text" size="14" name="Semiminoraxis" value="" style="FONT-FAMILY: Trebuchet MS">
-                                    </font>
-                                </td>
-                            </tr>
-
-                            <tr>
-                                <td valign="top">
-                                    <font size="2" face="Trebuchet MS">Satellite Longitude</font>
-                                </td>
-                                <td valign="top">
-                                    <font size="2" face="Trebuchet MS">deg</font>
-                                </td>
-
-                                <td valign="top">
-                                    <font size="2" face="Trebuchet MS"><input type="text" size="20" name="SatelliteLongitude" value="" style="FONT-FAMILY: Trebuchet MS">
-                                    </font>
-                                </td>
-                            </tr>
-
-                            <tr>
-                                <td valign="top">
-                                    <font size="2" face="Trebuchet MS">Satellite Geocentric Latitude</font>
-                                </td>
-                                <td valign="top">
-                                    <font size="2" face="Trebuchet MS">deg</font>
-                                </td>
-
-                                <td valign="top">
-                                    <font size="2" face="Trebuchet MS"><input type="text" size="20" name="SatelliteGeocentricLatitude" value="" style="FONT-FAMILY: Trebuchet MS">
+                                    <font size="2"><input type="text" size="50" name="EccentricanomalyErrorBeforeIterations" value="">
                                     </font>
                                 </td>
                             </tr>
@@ -1190,64 +796,472 @@
 
                             <tr>
                                 <td valign="top">
-                                    <font size="2" face="Trebuchet MS">Satellite Geodetic Latitude</font>
+                                    <font size="2">Eccentric anomaly after iterations</font>
                                 </td>
                                 <td valign="top">
-                                    <font size="2" face="Trebuchet MS">deg</font>
+                                    <font size="2">deg</font>
                                 </td>
 
                                 <td valign="top">
-                                    <font size="2" face="Trebuchet MS"><input type="text" size="20" name="SatelliteGeodeticLatitude" value="" style="FONT-FAMILY: Trebuchet MS">
+                                    <font size="2"><input type="text" size="14" name="EccentricanomalyAfterIterations" value="">
                                     </font>
                                 </td>
                             </tr>
 
                             <tr>
                                 <td valign="top">
-                                    <font size="2" face="Trebuchet MS">Satellite Azimuth</font>
+                                    <font size="2">Eccentric anomaly error after iterations</font>
                                 </td>
                                 <td valign="top">
-                                    <font size="2" face="Trebuchet MS">deg</font>
+                                    <font size="2">deg</font>
                                 </td>
 
                                 <td valign="top">
-                                    <font size="2" face="Trebuchet MS"><input type="text" size="20" name="SatelliteAzimuth" value="" style="FONT-FAMILY: Trebuchet MS">
+                                    <font size="2"><input type="text" size="50" name="EccentricanomalyErrorAfterIterations" value="">
+                                    </font>
+                                </td>
+                            </tr>
+
+
+
+                            <tr>
+                                <td valign="top">
+                                    <font size="2">Number of eccentric anomaly iterations</font>
+                                </td>
+                                <td valign="top">
+                                    <font size="2"></font>
+                                </td>
+
+                                <td valign="top">
+                                    <font size="2"><input type="text" size="14" name="Iterations" value="">
                                     </font>
                                 </td>
                             </tr>
 
                             <tr>
                                 <td valign="top">
-                                    <font size="2" face="Trebuchet MS">Satellite Elevation</font>
+                                    <font size="2">Xo orbital plane</font>
                                 </td>
                                 <td valign="top">
-                                    <font size="2" face="Trebuchet MS">deg</font>
+                                    <font size="2">km</font>
                                 </td>
 
                                 <td valign="top">
-                                    <font size="2" face="Trebuchet MS"><input type="text" size="20" name="SatelliteElevation" value="" style="FONT-FAMILY: Trebuchet MS">
+                                    <font size="2"><input type="text" size="14" name="X_orbit_plane" value="">
+                                    </font>
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td valign="top">
+                                    <font size="2">Yo orbital plane</font>
+                                </td>
+                                <td valign="top">
+                                    <font size="2">km</font>
+                                </td>
+
+                                <td valign="top">
+                                    <font size="2"><input type="text" size="14" name="Y_orbit_plane" value="">
                                     </font>
                                 </td>
                             </tr>
                             <tr>
                                 <td valign="top">
-                                    <font size="2" face="Trebuchet MS">Satellite Range</font>
+                                    <font size="2">r orbital plane</font>
                                 </td>
                                 <td valign="top">
-                                    <font size="2" face="Trebuchet MS">km</font>
+                                    <font size="2">km</font>
                                 </td>
 
                                 <td valign="top">
-                                    <font size="2" face="Trebuchet MS"><input type="text" size="20" name="SatelliteRange" value="" style="FONT-FAMILY: Trebuchet MS">
+                                    <font size="2"><input type="text" size="14" name="r_orbit_plane" value="">
+                                    </font>
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td valign="top">
+                                    <font size="2">Geocentric, x</font>
+                                </td>
+                                <td valign="top">
+                                    <font size="2">km</font>
+                                </td>
+
+                                <td valign="top">
+                                    <font size="2"><input type="text" size="14" name="x_geocentric" value="">
+                                    </font>
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td valign="top">
+                                    <font size="2">Geocentric, y</font>
+                                </td>
+                                <td valign="top">
+                                    <font size="2">km</font>
+                                </td>
+
+                                <td valign="top">
+                                    <font size="2"><input type="text" size="14" name="y_geocentric" value="">
+                                    </font>
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td valign="top">
+                                    <font size="2">Geocentric, z</font>
+                                </td>
+                                <td valign="top">
+                                    <font size="2">km from equator</font>
+                                </td>
+
+                                <td valign="top">
+                                    <font size="2"><input type="text" size="14" name="z_geocentric" value="">
+                                    </font>
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td valign="top">
+                                    <font size="2">Right Ascension</font>
+                                </td>
+                                <td valign="top">
+                                    <font size="2">deg</font>
+                                </td>
+
+                                <td valign="top">
+                                    <font size="2"><input type="text" size="64" name="RA" value="">
+                                    </font>
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td valign="top">
+                                    <font size="2">GMST</font>
+                                </td>
+                                <td valign="top">
+                                    <font size="2">deg</font>
+                                </td>
+
+                                <td valign="top">
+                                    <font size="2"><input type="text" size="14" name="GMST" value=""><input type="text" size="14" name="GMST2" value="">
+                                    </font>
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td valign="top">
+                                    <font size="2">Declination</font>
+                                </td>
+                                <td valign="top">
+                                    <font size="2">deg (current inclination)</font>
+                                </td>
+
+                                <td valign="top">
+                                    <font size="2"><input type="text" size="64" name="declination" value="">
+                                    </font>
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td valign="top">
+                                    <font size="2">Satellite E/W oscillation caused by inclination</font>
+                                </td>
+                                <td valign="top">
+                                    <font size="2">deg</font>
+                                </td>
+
+                                <td valign="top">
+                                    <font size="2"><input type="text" size="14" name="EW_oscillation_caused_by_inclination" value="">
+                                    </font>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td valign="top">
+                                    <font size="2">Satellite E/W oscillation caused by eccentricity</font>
+                                </td>
+                                <td valign="top">
+                                    <font size="2">deg</font>
+                                </td>
+
+                                <td valign="top">
+                                    <font size="2"><input type="text" size="14" name="EW_oscillation_caused_by_eccentricity" value="">
+                                    </font>
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td valign="top">
+                                    <font size="2">Current Driftrate</font>
+                                </td>
+                                <td valign="top">
+                                    <font size="2">deg/day</font>
+                                </td>
+
+                                <td valign="top">
+                                    <font size="2"><input type="text" size="14" name="Driftrate" value=""><input type="text" size="14" name="Direction" value="">
+                                    </font>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td valign="top">
+                                    <font size="2">Average Driftrate</font>
+                                </td>
+                                <td valign="top">
+                                    <font size="2">deg/day</font>
+                                </td>
+
+                                <td valign="top">
+                                    <font size="2"><input type="text" size="14" name="AverageDriftrate" value=""><input type="text" size="14" name="AverageDriftrateDirection" value="">
+                                    </font>
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td valign="top">
+                                    <font size="2">Longitude Driftrate</font>
+                                </td>
+                                <td valign="top">
+                                    <font size="2">deg/day</font>
+                                </td>
+
+                                <td valign="top">
+                                    <font size="2"><input type="text" size="14" name="LongitudeDriftrate" value=""><input type="text" size="14" name="LongitudeDriftrateDirection" value="">
+                                    </font>
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td valign="top">
+                                    <font size="2">Longitude after 24hours</font>
+                                </td>
+                                <td valign="top">
+                                    <font size="2">deg</font>
+                                </td>
+
+                                <td valign="top">
+                                    <font size="2"><input type="text" size="34" name="LongitudeAfter24Hours" value="">
+                                    </font>
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td valign="top">
+                                    <font size="2">Altitude</font>
+                                </td>
+                                <td valign="top">
+                                    <font size="2">km</font>
+                                </td>
+
+                                <td valign="top">
+                                    <font size="2"><input type="text" size="14" name="Altitude" value=""><br>from GEO now:
+                                        <input type="text" size="30" name="GeoAltitude" value=""><br>Average from GEO:
+                                        <input type="text" size="30" name="AvrGeoAltitude" value="">
+                                    </font>
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td valign="top">
+                                    <font size="2">Altitude (Geodetic)</font>
+                                </td>
+                                <td valign="top">
+                                    <font size="2">km</font>
+                                </td>
+
+                                <td valign="top">
+                                    <font size="2"><input type="text" size="14" name="GeoDeticAltitude" value="">
+                                    </font>
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td valign="top">
+                                    <font size="2">Satellite period,TC</font>
+                                </td>
+                                <td valign="top">
+                                    <font size="2">hh:mm:ss</font>
+                                </td>
+
+                                <td valign="top">
+                                    <font size="2"><input type="text" size="14" name="TC" value="">
+                                    </font>
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td valign="top">
+                                    <font size="2">Nominal GEO period</font>
+                                </td>
+                                <td valign="top">
+                                    <font size="2">hh:mm:ss</font>
+                                </td>
+
+                                <td valign="top">
+                                    <font size="2"><input type="text" size="14" name="GeoTC" value="">
+                                    </font>
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td valign="top">
+                                    <font size="2">Satellite velocity</font>
+                                </td>
+                                <td valign="top">
+                                    <font size="2">km/s</font>
+                                </td>
+
+                                <td valign="top">
+                                    <font size="2"><input type="text" size="14" name="Velocity" value="">
+                                    </font>
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td valign="top">
+                                    <font size="2">Altitude at Perigee</font>
+                                </td>
+                                <td valign="top">
+                                    <font size="2">km</font>
+                                </td>
+
+                                <td valign="top">
+                                    <font size="2"><input type="text" size="14" name="Perigee" value="">
+                                    </font>
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td valign="top">
+                                    <font size="2">Altitude at Apogee</font>
+                                </td>
+                                <td valign="top">
+                                    <font size="2">km</font>
+                                </td>
+
+                                <td valign="top">
+                                    <font size="2"><input type="text" size="14" name="Apogee" value="">
+                                    </font>
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td valign="top">
+                                    <font size="2">Semi-Major-Axis</font>
+                                </td>
+                                <td valign="top">
+                                    <font size="2">km</font>
+                                </td>
+
+                                <td valign="top">
+                                    <font size="2"><input type="text" size="14" name="Semimajoraxis" value="">
+                                    </font>
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td valign="top">
+                                    <font size="2">Semi-Minor-Axis</font>
+                                </td>
+                                <td valign="top">
+                                    <font size="2">km</font>
+                                </td>
+
+                                <td valign="top">
+                                    <font size="2"><input type="text" size="14" name="Semiminoraxis" value="">
+                                    </font>
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td valign="top">
+                                    <font size="2">Satellite Longitude</font>
+                                </td>
+                                <td valign="top">
+                                    <font size="2">deg</font>
+                                </td>
+
+                                <td valign="top">
+                                    <font size="2"><input type="text" size="20" name="SatelliteLongitude" value="">
+                                    </font>
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td valign="top">
+                                    <font size="2">Satellite Geocentric Latitude</font>
+                                </td>
+                                <td valign="top">
+                                    <font size="2">deg</font>
+                                </td>
+
+                                <td valign="top">
+                                    <font size="2"><input type="text" size="20" name="SatelliteGeocentricLatitude" value="">
+                                    </font>
+                                </td>
+                            </tr>
+
+
+                            <tr>
+                                <td valign="top">
+                                    <font size="2">Satellite Geodetic Latitude</font>
+                                </td>
+                                <td valign="top">
+                                    <font size="2">deg</font>
+                                </td>
+
+                                <td valign="top">
+                                    <font size="2"><input type="text" size="20" name="SatelliteGeodeticLatitude" value="">
+                                    </font>
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td valign="top">
+                                    <font size="2">Satellite Azimuth</font>
+                                </td>
+                                <td valign="top">
+                                    <font size="2">deg</font>
+                                </td>
+
+                                <td valign="top">
+                                    <font size="2"><input type="text" size="20" name="SatelliteAzimuth" value="">
+                                    </font>
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td valign="top">
+                                    <font size="2">Satellite Elevation</font>
+                                </td>
+                                <td valign="top">
+                                    <font size="2">deg</font>
+                                </td>
+
+                                <td valign="top">
+                                    <font size="2"><input type="text" size="20" name="SatelliteElevation" value="">
+                                    </font>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td valign="top">
+                                    <font size="2">Satellite Range</font>
+                                </td>
+                                <td valign="top">
+                                    <font size="2">km</font>
+                                </td>
+
+                                <td valign="top">
+                                    <font size="2"><input type="text" size="20" name="SatelliteRange" value="">
                                     </font>
                                 </td>
                             </tr>
                         </table>
 
-                        <p align=center><input onclick="generate_listings()" type=button value="Generate 170 hour @ 1 hour interval listings" name=button2 style="FONT-FAMILY: Trebuchet MS"></font>
+                        <p align=center><input onclick="generate_listings()" type=button value="Generate 170 hour @ 1 hour interval listings" name=button2></font>
                         </P>
 
-                        <p align=center><input onclick="generate_24hour_listings()" type=button value="Generate 24 hour @ 1 minute interval listings" name=button4 style="FONT-FAMILY: Trebuchet MS"></font>
+                        <p align=center><input onclick="generate_24hour_listings()" type=button value="Generate 24 hour @ 1 minute interval listings" name=button4></font>
                         </P>
 
                     </form>
@@ -1262,6 +1276,47 @@
             CIT 261 Satellite Calculator Project
         </div>
     </footer>
+
+    <script>
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(accept, decline);
+        }
+
+        function accept(position) {
+            // Put the latitude and longitude into a string
+            //var latlong = position.coords.latitude + "," + position.coords.longitude;
+            var tLong = "";
+            var tLat = "";
+
+            if (position.coords.latitude >= 0) {
+                tLat = position.coords.latitude + ":North";
+            } else {
+                tLat = (position.coords.latitude * -1) + ":South";
+            }
+            console.log(tLat);
+
+            if (position.coords.longitude >= 0) {
+                tLong = position.coords.longitude + ":East";
+            } else {
+                tLong = (position.coords.longitude * -1) + ":West";
+            }
+            console.log(tLong);
+
+            //40.75:North,111.92:West,USA - Salt Lake City- UT
+
+            var latlong = tLat + "," + tLong + ",Auto GPS";
+            console.log(latlong);
+
+            // Put string into the location form
+            var location = document.getElementById("locationLatLong");
+            location.value = latlong;
+        }
+        // If the user declined geolocation tracking
+        function decline() {
+            // DEBUGGING
+            console.log("Rejected geolocation");
+        }
+    </script>
 </body>
 
 </html>

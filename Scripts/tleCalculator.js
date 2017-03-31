@@ -30,10 +30,10 @@ window.setInterval("do_autoupdate()", 1000);
 
 function getLonAsEast(Longinow, dirnow, Longi24, dir24) {
     var londrift
-    //OutputArray[48]= Longitude direction
-    //OutputArray[49]= Longitude in 0-360 deg east format
+        //OutputArray[48]= Longitude direction
+        //OutputArray[49]= Longitude in 0-360 deg east format
 
-	/*
+    /*
 	if (Longinow<Longi24) {
 	londrift=Longi24-Longinow ;
 	londrift=londrift+" East";
@@ -55,15 +55,15 @@ function getLonAsEast(Longinow, dirnow, Longi24, dir24) {
 
 function do_autoupdate() {
 
-	/*
-	var Hour,Minute,Second,Month,Day,Year
-	Year= Tracker.YearNow.value;
-	Hour= Tracker.HourNow.value ;
-	Minute=Tracker.MinuteNow.value;
-	Second=Tracker.SecondNow.value ;
-	Month= Tracker.MonthNow.value;
-	Day= DayNow.value ;
-	 */
+    /*
+    var Hour,Minute,Second,Month,Day,Year
+    Year= Tracker.YearNow.value;
+    Hour= Tracker.HourNow.value ;
+    Minute=Tracker.MinuteNow.value;
+    Second=Tracker.SecondNow.value ;
+    Month= Tracker.MonthNow.value;
+    Day= DayNow.value ;
+     */
     //setCurrentTimeArray=setCurrentTime(1*DayNow.value,1*MonthNow.value,1*YearNow.value,1*HourNow.value,1*MinuteNow.value,1*SecondNow.value);
 
 
@@ -300,7 +300,7 @@ function ReadCookie() {
         HA_for_calibrated_position = ValArray[10];
 
         //Position.selectedIndex=SitePosCurrentIndex;
-        Tracker.Position.selectedIndex = SitePosCurrentIndex;
+        // Tracker.Position.selectedIndex = SitePosCurrentIndex;
 
         Tracker.LatitudeDegrees.value = Lat; // Set user defaults if cookie already stored on the system
         Tracker.LatitudeDirection.value = LatDir; //   ' Set user defaults if cookie already stored on the system
@@ -309,7 +309,7 @@ function ReadCookie() {
 
 
     } else {
-        Tracker.Position.selectedIndex = SitePosCurrentIndex;
+        // Tracker.Position.selectedIndex = SitePosCurrentIndex;
         alert("Empty cookie - select a site position");
     }
 
@@ -324,9 +324,9 @@ function SetCookie() {
         LonDir,
         CookieValue
     var SitePosCurrentIndex
-    //alert(document.Position.selectedIndex);
+        //alert(document.Position.selectedIndex);
 
-    SitePosCurrentIndex = Tracker.Position.selectedIndex;
+    // SitePosCurrentIndex = Tracker.Position.selectedIndex;
 
     Lat = 1 * Tracker.LatitudeDegrees.value;
     LatDir = Tracker.LatitudeDirection.value;
@@ -423,14 +423,15 @@ function ReadPosition() //   Store the selected position in the cookie
     var ValArray = new Array();
     var SubArray = new Array();
 
-    MyVal = Tracker.Position.value;
+    // MyVal = Tracker.Position.value;
+    MyVal = document.getElementById('locationLatLong').value;
 
     if (MyVal == null)
         alert("Cookie damaged - plese run the cookie repair script !");
 
     if (MyVal !== null) {
         // Check  position
-        ValArray = MyVal.split(",");
+        ValArray = MyVal.split(","); //40.75:North,111.92:West
 
         SubArray = ValArray[0].split(":"); // The first subarray containing Lat:LatDir
         Lat = SubArray[0];
@@ -840,27 +841,27 @@ function generate_24hour_listings() {
 
     //alert(auto_manual.value);
 
-	/*
+    /*
 
-	var time_format = new Date();
+    var time_format = new Date();
 
-	listing="<html>"
-	listing+="<head>"
-	listing+="<meta http-equiv=Content-Type>"
+    listing="<html>"
+    listing+="<head>"
+    listing+="<meta http-equiv=Content-Type>"
 
-	listing+="<meta name=GENERATOR content=Microsoft FrontPage 4.0>"
-	listing+="<title>Sun azimuth ~ Satellite Longitude</title>"
-	listing+="</head>"
-	listing+="<FONT SIZE=4>"
-	listing+="<body>"
+    listing+="<meta name=GENERATOR content=Microsoft FrontPage 4.0>"
+    listing+="<title>Sun azimuth ~ Satellite Longitude</title>"
+    listing+="</head>"
+    listing+="<FONT SIZE=4>"
+    listing+="<body>"
 
-	listing+="<center><font size=+2 face=Arial>****************************SUN************************************</font></center>";
+    listing+="<center><font size=+2 face=Arial>****************************SUN************************************</font></center>";
 
-	listing+="<center><font size=+2 face=Arial>***************************MOON***********************************</font></center>"
+    listing+="<center><font size=+2 face=Arial>***************************MOON***********************************</font></center>"
 
 
-	listing+="</html>"
-	 */
+    listing+="</html>"
+     */
 
     // bruk tid konfigurert i form som starttid og beregn vinkler for hver time i 170 timer
     // må gjøre om på funksjonene for å gjøre de brukbare til listing funksjon....
@@ -948,9 +949,9 @@ function generate_24hour_listings() {
     //listing+="Not implemented yet";
 
     PrintWindow = window.open("", "Print_window")
-    //PrintWindow =window.open("TEST","Print_window","menubar=yes,status=yes,toolbar=yes,scrollbars=yes"); //height=800,width=1000
+        //PrintWindow =window.open("TEST","Print_window","menubar=yes,status=yes,toolbar=yes,scrollbars=yes"); //height=800,width=1000
     PrintWindow.oldWindow = top
-    //PrintWindow.document.write(document.Output.Satpos.value)
+        //PrintWindow.document.write(document.Output.Satpos.value)
     PrintWindow.document.write(listing)
     PrintWindow.document.close()
 
@@ -992,27 +993,27 @@ function generate_listings() {
 
     //alert(auto_manual.value);
 
-	/*
+    /*
 
-	var time_format = new Date();
+    var time_format = new Date();
 
-	listing="<html>"
-	listing+="<head>"
-	listing+="<meta http-equiv=Content-Type>"
+    listing="<html>"
+    listing+="<head>"
+    listing+="<meta http-equiv=Content-Type>"
 
-	listing+="<meta name=GENERATOR content=Microsoft FrontPage 4.0>"
-	listing+="<title>Sun azimuth ~ Satellite Longitude</title>"
-	listing+="</head>"
-	listing+="<FONT SIZE=4>"
-	listing+="<body>"
+    listing+="<meta name=GENERATOR content=Microsoft FrontPage 4.0>"
+    listing+="<title>Sun azimuth ~ Satellite Longitude</title>"
+    listing+="</head>"
+    listing+="<FONT SIZE=4>"
+    listing+="<body>"
 
-	listing+="<center><font size=+2 face=Arial>****************************SUN************************************</font></center>";
+    listing+="<center><font size=+2 face=Arial>****************************SUN************************************</font></center>";
 
-	listing+="<center><font size=+2 face=Arial>***************************MOON***********************************</font></center>"
+    listing+="<center><font size=+2 face=Arial>***************************MOON***********************************</font></center>"
 
 
-	listing+="</html>"
-	 */
+    listing+="</html>"
+     */
 
     // bruk tid konfigurert i form som starttid og beregn vinkler for hver time i 170 timer
     // må gjøre om på funksjonene for å gjøre de brukbare til listing funksjon....
@@ -1100,9 +1101,9 @@ function generate_listings() {
     //listing+="Not implemented yet";
 
     PrintWindow = window.open("", "Print_window")
-    //PrintWindow =window.open("","Print_window","menubar=yes,status=yes,toolbar=yes,scrollbars=yes"); //height=800,width=1000
+        //PrintWindow =window.open("","Print_window","menubar=yes,status=yes,toolbar=yes,scrollbars=yes"); //height=800,width=1000
     PrintWindow.oldWindow = top
-    //PrintWindow.document.write(document.Output.Satpos.value)
+        //PrintWindow.document.write(document.Output.Satpos.value)
     PrintWindow.document.write(listing)
     PrintWindow.document.close()
 
@@ -1110,7 +1111,7 @@ function generate_listings() {
 
 function Rev(number) {
     var x
-    //x= number -Math.floor(number/360.0)*360 ;  // old 24 feb
+        //x= number -Math.floor(number/360.0)*360 ;  // old 24 feb
 
     x = number;
 
@@ -1250,7 +1251,7 @@ function getTLEfromTextAerea() {
         EpochDay;
     var rows = new Array();
 
-    tmpString = Tracker.twoline.value;
+    tmpString = document.getElementById('TleDataId').value; //Tracker.twoline.value;
     rows = tmpString.split("\n");
 
     Tracker.CommonName.value = rows[0];
@@ -1286,7 +1287,7 @@ function getTLEfromTextAerea() {
         // Epoch_start=366+daynumber_tle((1*EpochYear),EpochDay*1);// changed 30 Mars due to an error of one year
 
         Epoch_start = daynumber_tle((1 * EpochYear), EpochDay * 1)
-        //alert("Epoch start="+daynumber_tle((1*EpochYear),EpochDay*1));
+            //alert("Epoch start="+daynumber_tle((1*EpochYear),EpochDay*1));
 
         Tracker.DateEpoch.value = d_to_date_and_time(Epoch_start); //
 
@@ -1747,7 +1748,7 @@ function calculatedriftrate(Day, Month, Year, Hour, Minute, Second, Satellite_re
     // use semimajoraxis/2 offset from Geo to get an more average like drift
 
     average_distance_from_geo_sync_radius,
-        average_drift_rate
+    average_drift_rate
 
     average_distance_from_geo_sync_radius = (OutputArray[11]) - GeoSyncRadius; // semimajoraxis-Geosyncradius
 
