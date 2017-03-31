@@ -20,9 +20,7 @@ html {
 */
 
 body {
-    background-color: #fff;
-    width:1920px;
-    height:1080px;
+    background-color: lightgray;
     color: #333;
     font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
     font-size: 14px;
@@ -99,6 +97,8 @@ h1 {
 }
 img {
     border: 0 none;
+    width: 100%;
+    height: auto;
 }
 hr {
     box-sizing: content-box;
@@ -228,7 +228,7 @@ td, th {
 textarea
 {
     overflow: auto;
-	min-width: 540px; /* Updated to 540 to stop text wrap issues in text area */
+	min-width: 570px; /* Updated to 570 to stop text wrap issues in text area for IE, Edge, and Firefox */
 	min-height: 70px;
 }
 /* Uncomment below to turn on DIV debug */
