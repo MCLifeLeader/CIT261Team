@@ -1,41 +1,44 @@
 <!DOCTYPE html>
 <html lang="en">
-	<head>
-		<title>Satellite Position Calculator</title>
 
-		<meta charset="utf-8" />
-		<meta name="viewport" content="width=device-width, initial-scale=1" />
-		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
-		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-		<meta http-equiv="Content-Language" content="en-us" />
-		<meta name="Robots" content="Follow, Index" />
-		<meta name="Distribution" content="Worldwide" />
-		<meta name="Rating" content="General" />
+<head>
+	<title>Satellite Position Calculator</title>
 
-		<meta name="DESCRIPTION" content="Awesome Animated Calculator - Orbital path calculator." />
-		<meta name="KEYWORDS" content="CIT 261, BYU-Idaho, Satellite Calculator" />
-		<meta name="School" content="BYU-Idaho" />
-		
-		<link rel="stylesheet" href="styles.css" />
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<meta http-equiv="Content-Language" content="en-us" />
+	<meta name="Robots" content="Follow, Index" />
+	<meta name="Distribution" content="Worldwide" />
+	<meta name="Rating" content="General" />
 
-		<script src="Scripts/globalObjects.js"></script>
-		<script src="Scripts/readTleData.js"></script>		
-		<script src="Scripts/tleCalculator.js"></script>
-		<script src="Scripts/loadTleData.js"></script>
-		<script src="Scripts/getCoord.js"></script>
-		<script src="Scripts/swapImage.js"></script>
-	</head>
-	<body onload="getCoord()">
-        <header><h1>Satellite Position Calculator</h1>
-            <nav>                
-                <div class="dropdown">
-                    <div onmouseover="showSatLinks()" class="dropbtn">Satellites</div>
-                    <div id="satSelector" class="dropdown-content">
-                    </div>
-                </div>
-				<div class="dropdown">
-                    <div onmouseover="showMapLinks()" class="dropbtn">World Maps</div>
-                    <div id="mapSelector" class="dropdown-content">
+	<meta name="DESCRIPTION" content="Awesome Animated Calculator - Orbital path calculator." />
+	<meta name="KEYWORDS" content="CIT 261, BYU-Idaho, Satellite Calculator" />
+	<meta name="School" content="BYU-Idaho" />
+
+	<link rel="stylesheet" href="styles.css" />
+
+	<script src="Scripts/globalObjects.js"></script>
+	<script src="Scripts/readTleData.js"></script>
+	<script src="Scripts/tleCalculator.js"></script>
+	<script src="Scripts/loadTleData.js"></script>
+	<script src="Scripts/pageData.js"></script>
+	<script src="Scripts/swapImage.js"></script>
+</head>
+
+<body onload="initPageData()">
+	<header class="container">
+		<h1>Satellite Position Calculator</h1>
+		<nav>
+			<div class="dropdown">
+				<div onmouseover="showSatLinks()" class="dropbtn">Satellites</div>
+				<div id="satSelector" class="dropdown-content">
+				</div>
+			</div>
+			<div class="dropdown">
+				<div onmouseover="showMapLinks()" class="dropbtn">World Maps</div>
+				<div id="mapSelector" class="dropdown-content">
 					<a href="javascript:swapImage('Images/WorldMap01.png', 'imageToSwap')">World Map</a>
 					<a href="javascript:swapImage('Images/WorldMap04.jpg', 'imageToSwap')">World Cities</a>
 					<a href="javascript:swapImage('Images/WorldMap05.jpg', 'imageToSwap')">World Map 2</a>
@@ -44,32 +47,37 @@
 					<a href="javascript:swapImage('Images/WorldMap02.jpg', 'imageToSwap')">Elements</a>
 					<a href="javascript:swapImage('Images/MiddleEarth01.jpg', 'imageToSwap')">Middle Earth 1</a>
 					<a href="javascript:swapImage('Images/MiddleEarth02.jpg', 'imageToSwap')">Middle Earth 2</a>
-                    </div>
-                </div>
-            </nav>
-        </header>
-        <section>
+				</div>
+			</div>
+		</nav>
+	</header>
+	<section>
 		<div class="container body-content">
 			<div class="row">
-                <div class="col-md-12">
+				<div class="col-md-12">
 					<h2>Based on TLE data</h2>
-                </div>
-				<div class="row">
-					<div class="col-md-12"><hr /></div>
 				</div>
-                <div class="col-md-12">
+				<div class="row">
+					<div class="col-md-12">
+						<hr />
+					</div>
+				</div>
+				<div class="col-md-12">
 					<label>Enter a TLE Data String: </label><br/>
 					<textarea cols="4" class="textarea" id="TleDataId" type="text" value=""></textarea><br />
 					<button onclick="readTleData(document.getElementById('TleDataId').value)">Input TLE</button><br /><br />
-                </div>
-                <div id="map" class="col-md-12">
-                    <img id="imageToSwap" src="Images/WorldMap01.png">
-                </div>
-            </div>
-        </div>
-        </section>
-		<div id="Footer">
+				</div>
+				<div id="map" class="col-md-12">
+					<img id="imageToSwap" src="Images/WorldMap01.png">
+				</div>
+			</div>
+		</div>
+	</section>
+	<footer class="container">
+		<div id="Footer" class="col-md-12 footer">
+			CIT 261 Satellite Calculator Project
+		</div>
+	</footer>
+</body>
 
-        </div>
-	</body>
 </html>

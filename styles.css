@@ -205,6 +205,8 @@ td, th {
 {
 	font-weight: bold;
 	font-size: larger;
+	margin-top: 25px;
+	margin-bottom: 25px;
 }
 .HomePageImage {
 	max-height: 160px;
@@ -223,30 +225,13 @@ td, th {
 	color: white;
 	font-weight: bold;
 }
-.incomplete
-{
-	font-size: larger;
-	font-weight: bold;
-	color: red;
-}
-.review
-{
-	font-size: larger;
-	font-weight: bold;
-	color: orange;
-}
-.complete
-{
-	font-size: larger;
-	font-weight: bold;
-	color: green;
-}
 textarea
 {
     overflow: auto;
-	min-width: 375px;
+	min-width: 540px; /* Updated to 540 to stop text wrap issues in text area */
 	min-height: 70px;
 }
+/* Uncomment below to turn on DIV debug */
 /*
 div
 {

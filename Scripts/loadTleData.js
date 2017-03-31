@@ -7,7 +7,7 @@ and saves it in local storage under 'tleData'.
 
 function loadTleData() {
 	// Modifying a request option to use a proxy to bypass same-origin policy
-	$.ajaxPrefilter( function (options) {
+	$.ajaxPrefilter(function (options) {
 		if (options.crossDomain && jQuery.support.cors) {
 			var http = (window.location.protocol === 'http:' ? 'http:' : 'https:');
 			options.url = http + '//cors-anywhere.herokuapp.com/' + options.url;
@@ -19,7 +19,7 @@ function loadTleData() {
 			// Store the response in local storage
 			localStorage.setItem('tleData', response);
 			var localTleData = localStorage.getItem('tleData');
-	});
+		});
 }
 
 
