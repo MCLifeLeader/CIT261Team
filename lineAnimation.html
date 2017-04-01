@@ -8,14 +8,14 @@
       height: 10px;
       position: fixed;
       background-color: red;
-      margin-top: 5px;
+      margin-top: 138px;
       }
 
     </style>
   </header>
   <body onload="line()">
     <div id="redbox"></div>
-    <canvas id="myCanvas"></canvas>
+    <canvas id="myCanvas"></canvas>>
   </body>
 </html>
 
@@ -49,10 +49,10 @@ function line(){
 function right(){
   var redbox = document.getElementById("redbox");
   var interval = setInterval(frame, 20);
-  var frequency = 90;
+  var frequency = 300;
   var move = 0;
    var vertical = 58;
-  var slope = 15;
+  var slope = 50;
   var cr = 0;
   var m = 90/180*Math.PI / frequency;
   function frame(){
@@ -61,7 +61,7 @@ function right(){
       redbox.style.left = move + "px";
       cr += m;
       move++;
-      if(move>305){
+      if(move>1000){
         clearInterval(interval);
         break;
       }
