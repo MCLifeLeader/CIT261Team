@@ -26,6 +26,7 @@
     <script src="Scripts/swapImage.js"></script>
     <script src="Scripts/tleCalculator.js"></script>
     <script src="Scripts/latLongLoc.js"></script>
+    <script src="Scripts/mapFuncs.js"></script>
     <!-- This is to handle a canvase resize for responsive behavior -->
     <script src="Scripts/jquery-3.1.1.min.js"></script>
 </head>
@@ -84,6 +85,40 @@
 
                     function UpdateInputField() {
                         document.getElementById('locationLatLong').value = document.getElementById('selectPosition').value;
+                    }
+
+                    function UpdateSatPosition() {
+                        var maxDegree = 360;
+                        // Max Image Size
+                        var horizontalRatio = 1 / (360 / 1000);
+                        var verticalRatio = 1 / (360 / 500);
+
+                        /* Update Satellite location on page */
+                        var screenXOffset = 35; // Move the default sat icon in the width of the sat image pixels (Sat=30 distance from image 5)
+                        var screenYOffset = -512;
+
+                        var screenX = parseInt(Tracker.SatelliteLongitude.value.split(" ")[0]);
+                        var screenY = parseInt(Tracker.SatelliteGeocentricLatitude.value.split(" ")[0]);
+
+                        // console.log("Raw Longitude - " + screenX);
+                        // console.log("Raw Latitude - " + screenY);
+
+                        screenX *= horizontalRatio;
+                        screenY *= verticalRatio;
+
+                        // console.log("Raw Longitude Ratio - " + screenX);
+                        // console.log("Raw Latitude Ratio - " + screenY);
+
+                        screenX += screenXOffset;
+                        screenY += screenYOffset;
+
+                        console.log("Adjusted Longitude - " + screenX);
+                        console.log("Adjusted Latitude - " + screenY);
+
+                        var redbox = document.getElementById("redbox");
+                        redbox.style.left = screenX + "px";
+                        redbox.style.top = screenY + "px";
+                        /* Update Satellite location on page */
                     }
                 </script>
                 <div class="col-md-12">

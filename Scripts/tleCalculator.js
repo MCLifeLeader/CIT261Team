@@ -170,6 +170,9 @@ function do_autoupdate() {
 
         Tracker.LongitudeAfter24Hours.value = formatvalue(CalcDriftRateOutputArray_after_24_hours[49], 8) + " East (" + formatvalue((360 - CalcDriftRateOutputArray_after_24_hours[49]), 8) * 1 + " West )";
 
+        // See index.html
+        UpdateSatPosition();
+
         //GMST_2();
     }
 
@@ -412,7 +415,6 @@ function CalculateCoordinate() {
 
 function ReadPosition() //   Store the selected position in the cookie
 {
-
     var Lat,
         Lon,
         LatDir,
@@ -454,31 +456,18 @@ function ReadPosition() //   Store the selected position in the cookie
             EarthSiteLatitude = -Lat
         else
             EarthSiteLatitude = Lat;
-
     }
-
 }
 
 function ClickAutoupdate() {
-
     autoupdate = "True";
-
 }
 
 function ClickManualupdate() {
-
     autoupdate = "False";
-
 }
 
-function ManualTimeUpdate()
-//setCurrentTime(Day,Month,Year,Hour,Minute,Second)
-
-{
-
-    //setCurrentTimeArray=setCurrentTime(Day,Month,Year,Hour,Minute,Second);
-
-
+function ManualTimeUpdate() {
     CalcDriftRateOutputArray_after_24_hours = calculatedriftrate((1 * Tracker.DayNow.value + 1) * 1, 1 * Tracker.MonthNow.value, 1 * Tracker.YearNow.value, 1 * Tracker.HourNow.value,
         1 * Tracker.MinuteNow.value, 1 * Tracker.SecondNow.value, Tracker.Satellite_rev_solar_day.value, Tracker.Satellite_rev_sidereal_day.value,
         Tracker.first_derative_mean_motion.value, Tracker.Eccentricity.value, Tracker.Epoch.value, Tracker.Meananomaly.value, Tracker.Argument_of_perigee.value, Tracker.RA_AN.value, Tracker.Inclination.value, Tracker.NumberOfOrbitsAtEpoch.value);
@@ -668,7 +657,6 @@ function TimeUpdateNow() {
     Tracker.LongitudeAfter24Hours.value = formatvalue(CalcDriftRateOutputArray_after_24_hours[49], 8) + " East (" + formatvalue((360 - CalcDriftRateOutputArray_after_24_hours[49]), 8) * 1 + " West )";
 
     GMST_2();
-
 }
 
 function getCurrentTime() {
