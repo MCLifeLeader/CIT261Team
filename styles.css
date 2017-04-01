@@ -111,6 +111,12 @@ img {
     height: auto;
 }
 
+canvas {
+    border: 0 none;
+    width: 100%;
+    height: auto;
+}
+
 hr {
     box-sizing: content-box;
     height: 0;
@@ -271,6 +277,20 @@ th {
     background-color: red;
     color: white;
     font-weight: bold;
+}
+
+#redbox {
+      width: 30px;
+      height: 30px;
+      position: relative;
+/*      margin-top: -125px;*/
+      z-index:100;
+      }
+
+#imageToSwap
+{
+    z-index:-1;
+    position:static;
 }
 
 textarea {

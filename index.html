@@ -28,7 +28,7 @@
     <script src="Scripts/latLongLoc.js"></script>
 </head>
 
-<body onload="initPageData()">
+<body onload="initPageData(); line();">
     <header class="container">
         <h1>Satellite Position Calculator</h1>
         <nav>
@@ -73,7 +73,8 @@
                         ReadPosition();
                         CalculateCoordinate();
                         SetCookie();
-                        ManualTimeUpdate()
+                        ManualTimeUpdate();
+                        line();
 
                         var locData = document.getElementById('locationLatLong').value;
                         localStorage.setItem('latlong', locData);
@@ -102,7 +103,9 @@
                     <br/><br />
                 </div>
                 <div id="map" class="col-md-12">
-                    <img id="imageToSwap" src="Images/WorldMap01.png">
+<!--                    <img id="imageToSwap" src="Images/WorldMap01.png">-->
+                    <img id="redbox" src="Images/satallite.png">
+                    <canvas id="imageToSwap"></canvas>
                 </div>
                 <div class="col-md-12">
                     Adapted from: Jens T. Satre - <a href="http://www.satellite-calculations.com/" target="_blank">http://www.satellite-calculations.com/</a>
