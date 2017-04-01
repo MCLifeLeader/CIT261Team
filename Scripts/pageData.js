@@ -8,7 +8,7 @@ function initPageData() {
     xhr.open("GET", 'Data/tleData.txt', true);
     xhr.send(null);
 
-    xhr.onreadystatechange = function () {
+    xhr.onreadystatechange = function() {
         if (xhr.readyState === 4 || xhr.readyState === XMLHttpRequest.DONE) {
             if (xhr.status === 200 || xhr.status == 0) {
                 var satData = xhr.responseText;
@@ -24,8 +24,7 @@ function initPageData() {
                 }
 
                 postDataLoad();
-            }
-            else {
+            } else {
                 // Error
             }
         }
@@ -51,7 +50,7 @@ function showSatLinks() {
 }
 
 // Close the dropdown if the user clicks outside of it
-window.onclick = function (event) {
+window.onclick = function(event) {
     if (!event.target.matches('.dropbtn')) {
 
         var dropdowns = document.getElementsByClassName("dropdown-content");
@@ -69,10 +68,12 @@ function postDataLoad() {
     var satSelectorId = localStorage.getItem('satSelector');
     var mapSelectorImg = localStorage.getItem('mapSelector');
     var mapTargetElement = localStorage.getItem('mapTarget');
+    var latlongTextBox = localStorage.getItem('latlong');
 
     console.log("SatId=" + satSelectorId);
     console.log("ImageName=" + mapSelectorImg);
     console.log("Element=" + mapTargetElement);
+    console.log("Location=" + latlongTextBox);
 
     if (satSelectorId != null) {
         loadCoord(satSelectorId);
@@ -80,5 +81,13 @@ function postDataLoad() {
 
     if (mapSelectorImg != null && mapTargetElement != null) {
         swapImage(mapSelectorImg, mapTargetElement);
+    }
+
+    var latLongInput = document.getElementById('locationLatLong');
+
+    console.log(latLongInput.value);
+
+    if (latlongTextBox != null && (latLongInput.value == null || latLongInput.value == "")) {
+        latLongInput.value = latlongTextBox;
     }
 }

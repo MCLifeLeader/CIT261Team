@@ -74,6 +74,9 @@
                         CalculateCoordinate();
                         SetCookie();
                         ManualTimeUpdate()
+
+                        var locData = document.getElementById('locationLatLong').value;
+                        localStorage.setItem('latlong', locData);
                     }
 
                     function UpdateInputField() {
@@ -82,7 +85,7 @@
                 </script>
                 <div class="col-md-12">
                     <label>GPS Coordinates</label></br>
-                    <input id="locationLatLong" type="text" />
+                    <input id="locationLatLong" type="text" value="" />
                 </div>
                 <div class="col-md-12">
                     <label title="Select your nearest location or set the position manually">Select your nearest location or set the position manually</label></br>
@@ -101,1174 +104,846 @@
                 <div id="map" class="col-md-12">
                     <img id="imageToSwap" src="Images/WorldMap01.png">
                 </div>
-            </div>
-            <div class="row">
                 <div class="col-md-12">
-                    <!-- Jens T. Satre - http://www.satellite-calculations.com/ -->
-                    <form method="post" name="Tracker">
-
-                        <table border="1" cellspacing="0" width="680" bgcolor="#C0C0C0" align="center">
-                            <tr>
-                                <td>Adapted from: Jens T. Satre - http://www.satellite-calculations.com/</td>
-                            </tr>
-
-                            <!--<tr valign="top" bgcolor="#FFFFFF">
-                                <font size="2">
-                                    <td valign="top">
-                                        <textarea name="twoline" rows="3" cols="70" hidden></textarea>
-                                        <input onclick="ManualTimeUpdate();getTLEfromTextAerea();onchange_satellite_rev_siderealday()" type=button value="Load TLE"
-										 name=button1 >
-                                </font>
-                                </td>
-                                </font>
-                            </tr>-->
-                        </table>
-                        <table border="1" cellspacing="0" width="680" bgcolor="#C0C0C0" align="center">
-                            <!--<tr>
-                                <td valign="top" width="240">
-                                    <font color="#000000" size="2">Site Location</font>
-                                </td>
-                                <td valign="top" nowrap width="58">&nbsp;</td>
-                                <td valign="top" bgcolor="#FFFFFF" width="294">
-                                    <p>
-                                        <span title="Select your nearest location or set the position manually">
-            <select name="Position" size="11" onchange="ReadPosition();CalculateCoordinate();SetCookie();ManualTimeUpdate()" >
-              	
-		<script language="javascript">
-														document.write(sites);
-		</script>
- 
-            </select>
-			</span>
-                                        <font color="#000000">
-                                            <script language="javascript">
-                                                document.write(sites_updated);
-                                            </script>
-                                            <p align="left">
-                                                <font color="#000000" size="2">Find your coordinates at</font>
-                                                <script language="javascript">
-                                                    document.write(gnslink);
-                                                </script>
-                                                <font color="#000000" size="2"> GNS Search</font>
-                                                </a>
-                                            </p>
-
-                                        </font>
-                                    </p>
-                                </td>
-                            </tr>-->
-                            <tr>
-                                <td valign="top" width="240">
-                                    <font color="#000000" size="2">Site Latitude</font>
-                                </td>
-                                <td valign="top" width="58">
-                                    <font color="#000000" size="2">Degrees</font>
-                                </td>
-                                <td bgcolor="#FFFFFF" width="294">
-                                    <p>
-                                        <font color="#000000" size="2">
-                                            <input type="text" size="6" name="LatitudeDegrees" value="59.92" onchange="SetCookie();CalculateCoordinate();ManualTimeUpdate()">
-                                            <select name="LatitudeDirection" size="1" onchange="SetCookie();CalculateCoordinate();ManualTimeUpdate()">
-												<option selected value="North">North</option>
-												<option value="South">South</option>
-											</select>
-                                            <input type="text" size="1" name="LatDegrees" onchange="CalculateLat();SetCookie();CalculateCoordinate();ManualTimeUpdate()">deg.
-                                            <input type="text" size="1" name="LatMinutes" onchange="CalculateLat();SetCookie();CalculateCoordinate();ManualTimeUpdate()">min
-                                            <input type="text" size="1" name="LatSeconds" onchange="CalculateLat();SetCookie();CalculateCoordinate();ManualTimeUpdate()">sec
-
-                                        </font>
-                                    </p>
-
-                                </td>
-                            </tr>
-                            <tr>
-                                <td valign="top" width="240">
-                                    <font color="#000000" size="2">Site Longitude</font>
-                                </td>
-                                <td valign="top" width="58">
-                                    <font color="#000000" size="2">Degrees</font>
-                                </td>
-                                <td bgcolor="#FFFFFF" width="294">
-                                    <p>
-                                        <font color="#000000" size="2">
-                                            <!--webbot
-            bot="Validation" s-data-type="Number" s-number-separators="x." --><input type="text" size="6" name="LongitudeDegrees" value="10.75" onchange="SetCookie();CalculateCoordinate();ManualTimeUpdate()"><select name="LongitudeDirection" size="1" onchange="SetCookie();CalculateCoordinate();ManualTimeUpdate()">
-                <option selected value="East">East</option>
-                <option value="West">West</option>
-            </select>
-                                            <input type="text" size="1" name="LonDegrees" onchange="CalculateLon();SetCookie();CalculateCoordinate();ManualTimeUpdate()">deg.
-                                            <input type="text" size="1" name="LonMinutes" onchange="CalculateLon();SetCookie();CalculateCoordinate();ManualTimeUpdate()">min
-                                            <input type="text" size="1" name="LonSeconds" onchange="CalculateLon();SetCookie();CalculateCoordinate();ManualTimeUpdate()">sec
-                                        </font>
-                                    </p>
-
-                                </td>
-                            </tr>
-                            <tr>
-                                <td valign="top">
-                                    <font size="2">Epoch time</font>
-                                </td>
-                                <td valign="top">
-                                    <font size="2"></font>
-                                </td>
-
-                                <td valign="top" bgcolor="#FFFFFF">
-                                    <font size="2"><input type="text" size="70" name="DateEpoch" value=""></font>
-                                </td>
-
-
-                            </tr>
-
-                            <tr>
-                                <td valign="top">
-                                    <font size="2">Time elepsed since epoch</font>
-                                </td>
-                                <td valign="top">
-                                    <font size="2">hh:mm:ss</font>
-                                </td>
-
-                                <td valign="top" bgcolor="#FFFFFF">
-                                    <font size="2"><input type="text" size="50" name="TimeElepsedSinceEpoch" value=""></font>
-                                </td>
-
-
-                            </tr>
-                            <tr>
-                                <td valign="top">
-                                    <font size="2">TLE data and time format</font>
-                                </td>
-                                <td valign="top">
-                                    <font size="2"></font>
-                                </td>
-
-                                <td valign="top">
-                                    <font size="2"><input type="text" size="20" name="TimeEpochFormat"></font>
-                                </td>
-
-
-                            </tr>
-                            <tr>
-                                <td valign="top">
-                                    <font size="2">Julian Day</font>
-                                </td>
-                                <td valign="top">
-                                    <font size="2"></font>
-                                </td>
-
-                                <td valign="top">
-                                    <font size="2"><input type="text" size="20" name="JulianDay"></font>
-                                </td>
-
-
-                            </tr>
-                            <tr>
-                                <td valign="top">
-                                    <font size="2">Modified Julian Day</font>
-                                </td>
-                                <td valign="top">
-                                    <font size="2"></font>
-                                </td>
-
-                                <td valign="top">
-                                    <font size="2"><input type="text" size="20" name="ModifiedJulianDay"></font>
-                                </td>
-
-
-                            </tr>
-                            <tr>
-                                <td valign="top">
-                                    <font size="2">Days since J2000.0</font>
-                                </td>
-                                <td valign="top">
-                                    <font size="2"></font>
-                                </td>
-
-                                <td valign="top">
-                                    <font size="2"><input type="text" size="20" name="dJ2000"></font>
-                                </td>
-
-
-                            </tr>
-
-                            <tr>
-                                <td valign="top">
-                                    <font size="2">Day</font>
-                                </td>
-                                <td valign="top">
-                                    <font size="2"></font>
-                                </td>
-
-                                <td valign="top" bgcolor="#FFFFFF">
-                                    <font size="2"><input type="text" size="2" name="DayNow" value="1" onchange="ManualTimeUpdate()"></font>
-                                </td>
-
-
-                            </tr>
-
-                            <tr>
-                                <td valign="top">
-                                    <font size="2">Month</font>
-                                </td>
-                                <td valign="top">
-                                    <font size="2"></font>
-                                </td>
-
-                                <td valign="top" bgcolor="#FFFFFF">
-                                    <font size="2"><input type="text" size="2" name="MonthNow" value="10" onchange="ManualTimeUpdate()"></font>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td valign="top">
-                                    <font size="2">Year</font>
-                                </td>
-                                <td valign="top">
-                                    <font size="2"></font>
-                                </td>
-
-                                <td valign="top" bgcolor="#FFFFFF">
-                                    <font size="2"><input type="text" size="4" name="YearNow" onchange="ManualTimeUpdate()"></font>
-                                </td>
-
-
-                            </tr>
-
-
-
-                            <tr>
-                                <td valign="top">
-                                    <font size="2">Hour</font>
-                                </td>
-                                <td valign="top">
-                                    <font size="2"></font>
-                                </td>
-
-                                <td valign="top" bgcolor="#FFFFFF">
-                                    <font size="2"><input type="text" size="4" name="HourNow" value="00" onchange="ManualTimeUpdate()">(UTC)
-                                        <input onclick="onchange_satellite_rev_siderealday();TimeUpdateNow()" type=button value="Get UTC time now" name=button3></font>
-                                </td>
-
-
-                            </tr>
-
-                            <tr>
-                                <td valign="top">
-                                    <font size="2">Minute</font>
-                                </td>
-                                <td valign="top">
-                                    <font size="2"></font>
-                                </td>
-
-                                <td valign="top" bgcolor="#FFFFFF">
-                                    <font size="2"><input type="text" size="4" name="MinuteNow" value="" onchange="ManualTimeUpdate()">(UTC)</font>
-                                </td>
-
-
-                            </tr>
-
-                            <tr>
-                                <td valign="top">
-                                    <font size="2">Second</font>
-                                </td>
-                                <td valign="top">
-                                    <font size="2"></font>
-                                </td>
-
-                                <td valign="top" bgcolor="#FFFFFF">
-                                    <font size="2"><input type="text" size="4" name="SecondNow" value="" onchange="ManualTimeUpdate()">(UTC)</font>
-                                </td>
-
-
-                            </tr>
-
-                            <tr>
-                                <td valign="top">
-                                    <font size="2">Time of calculation</font>
-                                </td>
-                                <td valign="top">
-                                    <font size="2">Local time <br>(if offset from UTC)</font>
-                                </td>
-
-                                <td valign="top">
-                                    <font size="2"><input type="text" size="70" name="TimeOfCalculation" value=""></font>
-                                </td>
-
-
-                            </tr>
-
-                            <tr>
-                                <td valign="top">
-                                    <font size="2">Satellite common name</font>
-                                </td>
-                                <td valign="top">
-                                    <font size="2"></font>
-                                </td>
-
-                                <td valign="top" bgcolor="#FFFFFF">
-                                    <font size="2"><input type="text" size="14" name="CommonName" value="">from TLE</font>
-                                </td>
-
-
-                            </tr>
-                            <tr>
-                                <td valign="top">
-                                    <font size="2">Object Id</font>
-                                </td>
-                                <td valign="top">
-                                    <font size="2"></font>
-                                </td>
-
-                                <td valign="top" bgcolor="#FFFFFF">
-                                    <font size="2"><input type="text" size="14" name="ObjectID" value="">from TLE</font>
-                                </td>
-
-
-                            </tr>
-                            <tr>
-                                <td valign="top">
-                                    <font size="2">International Designator</font>
-                                </td>
-                                <td valign="top">
-                                    <font size="2"></font>
-                                </td>
-
-                                <td valign="top" bgcolor="#FFFFFF">
-                                    <font size="2"><input type="text" size="14" name="InternationalDesignator" value="">from TLE
-                                    </font>
-                                </td>
-
-
-                            </tr>
-                            <tr>
-                                <td valign="top">
-                                    <font size="2">Elset Classification</font>
-                                </td>
-                                <td valign="top">
-                                    <font size="2"></font>
-                                </td>
-
-                                <td valign="top" bgcolor="#FFFFFF">
-                                    <font size="2"><input type="text" size="14" name="ElsetClassification" value="">from TLE
-                                    </font>
-                                </td>
-
-
-                            </tr>
-                            <tr>
-                                <td valign="top">
-                                    <font size="2">Number of orbits at Epoch</font>
-                                </td>
-                                <td valign="top">
-                                    <font size="2"></font>
-                                </td>
-
-                                <td valign="top" bgcolor="#FFFFFF">
-                                    <font size="2"><input type="text" size="14" name="NumberOfOrbitsAtEpoch" value="">from TLE
-                                    </font>
-                                </td>
-
-
-                            </tr>
-
-                            <tr>
-                                <td valign="top">
-                                    <font size="2">Number of orbits now</font>
-                                </td>
-                                <td valign="top">
-                                    <font size="2"></font>
-                                </td>
-
-                                <td valign="top">
-                                    <font size="2"> <input type="text" size="14" name="NumberOfOrbitsNow" value="">
-                                    </font>
-                                </td>
-
-
-                            </tr>
-
-                            <tr>
-                                <td valign="top">
-                                    <font size="2">Earth Rev/solarday</font>
-                                </td>
-                                <td valign="top">
-                                    <font size="2">rev/day</font>
-                                </td>
-
-                                <td valign="top">
-                                    <font size="2"> <input type="text" size="14" name="Earth_rev_solar_day" value="">
-                                    </font>
-                                </td>
-
-
-                            </tr>
-
-                            <tr>
-                                <td valign="top">
-                                    <font size="2">Earth Deg/solarday</font>
-                                </td>
-                                <td valign="top">
-                                    <font size="2">deg/day</font>
-                                </td>
-
-                                <td valign="top">
-                                    <font size="2"> <input type="text" size="14" name="Earth_deg_solar_day" value="">
-                                    </font>
-                                </td>
-
-
-                            </tr>
-
-
-                            </tr>
-
-                            <tr>
-                                <td valign="top">
-                                    <font size="2">Earth Rev/siderealday</font>
-                                </td>
-                                <td valign="top">
-                                    <font size="2">rev/day</font>
-                                </td>
-
-                                <td valign="top">
-                                    <font size="2"> <input type="text" size="14" name="Earth_rev_sidereal_day" value="">
-                                    </font>
-                                </td>
-
-
-                            </tr>
-
-                            <tr>
-                                <td valign="top">
-                                    <font size="2">Earth Deg/siderealday</font>
-                                </td>
-                                <td valign="top">
-                                    <font size="2">deg/day</font>
-                                </td>
-
-                                <td valign="top">
-                                    <font size="2"> <input type="text" size="14" name="Earth_deg_sidereal_day" value="">
-                                    </font>
-                                </td>
-
-
-                            </tr>
-
-                            <tr>
-                                <td valign="top">
-                                    <font size="2">Satellite Deg/siderealday</font>
-                                </td>
-                                <td valign="top">
-                                    <font size="2">deg/day</font>
-                                </td>
-
-                                <td valign="top">
-                                    <font size="2"> <input type="text" size="14" name="Satellite_deg_sidereal_day" value="">
-                                    </font>
-                                </td>
-
-
-                            </tr>
-
-                            <tr>
-                                <td valign="top">
-                                    <font size="2">Satellite Rev/sidereal</font>
-                                </td>
-                                <td valign="top">
-                                    <font size="2">rev/day</font>
-                                </td>
-
-                                <td valign="top">
-                                    <font size="2"><input type="text" size="14" name="Satellite_rev_solar_day" onchange="onchange_satellite_rev_solarday();calculatedriftrate()" value="">(calculated for the time selected)
-                                    </font>
-                                </td>
-
-
-                            </tr>
-
-
-
-                            <tr>
-                                <td valign="top">
-                                    <font size="2">Satellite Deg/solarday</font>
-                                </td>
-                                <td valign="top">
-                                    <font size="2">deg/day</font>
-                                </td>
-
-                                <td valign="top">
-                                    <font size="2"><input type="text" size="14" name="Satellite_deg_solar_day" value="">
-                                    </font>
-                                </td>
-
-
-                            </tr>
-                            <tr>
-                                <td valign="top">
-                                    <font size="2">Epoch</font>
-                                </td>
-                                <td valign="top">
-                                    <font size="2"></font>
-                                </td>
-
-                                <td valign="top">
-                                    <font size="2"><input type="text" size="14" name="Epoch">from TLE
-                                    </font>
-                                </td>
-
-
-                            </tr>
-
-                            <tr>
-                                <td valign="top">
-                                    <font size="2">Inclination</font>
-                                </td>
-                                <td valign="top">
-                                    <font size="2">deg</font>
-                                </td>
-
-                                <td valign="top" bgcolor="#FFFFFF">
-                                    <font size="2"><input type="text" size="14" name="Inclination">from TLE
-                                    </font>
-                                </td>
-
-
-                            </tr>
-
-                            <tr>
-                                <td valign="top">
-                                    <font size="2">Right Ascension of Ascending node</font>
-                                </td>
-                                <td valign="top">
-                                    <font size="2">deg</font>
-                                </td>
-
-                                <td valign="top" bgcolor="#FFFFFF">
-                                    <font size="2"><input type="text" size="14" name="RA_AN">from TLE
-                                    </font>
-                                </td>
-                            </tr>
-
-                            <tr>
-                                <td valign="top">
-                                    <font size="2">Eccentricity</font>
-                                </td>
-                                <td valign="top">
-                                    <font size="2"></font>
-                                </td>
-
-                                <td valign="top" bgcolor="#FFFFFF">
-                                    <font size="2"><input type="text" size="14" name="Eccentricity">from TLE
-                                    </font>
-                                </td>
-                            </tr>
-
-
-                            <tr>
-                                <td valign="top">
-                                    <font size="2">Argument of perigee </font>
-                                </td>
-                                <td valign="top">
-                                    <font size="2">deg</font>
-                                </td>
-
-                                <td valign="top" bgcolor="#FFFFFF">
-                                    <font size="2"><input type="text" size="14" name="Argument_of_perigee">from TLE
-                                    </font>
-                                </td>
-                            </tr>
-
-                            <tr>
-                                <td valign="top">
-                                    <font size="2">Mean anomaly, M0</font>
-                                </td>
-                                <td valign="top">
-                                    <font size="2">deg</font>
-                                </td>
-
-                                <td valign="top" bgcolor="#FFFFFF">
-                                    <font size="2"><input type="text" size="14" name="Meananomaly">at reference time (from TLE)
-                                    </font>
-                                </td>
-                            </tr>
-
-                            <tr>
-                                <td valign="top">
-                                    <font size="2">Mean anomaly Calculated</font>
-                                </td>
-                                <td valign="top">
-                                    <font size="2">deg</font>
-                                </td>
-
-                                <td valign="top">
-                                    <font size="2"><input type="text" size="14" name="MeananomalyCalculated" value="">calculated for time selected
-                                    </font>
-                                </td>
-                            </tr>
-
-                            <tr>
-                                <td valign="top">
-                                    <font size="2">True anomaly (v)</font>
-                                </td>
-                                <td valign="top">
-                                    <font size="2">deg</font>
-                                </td>
-
-                                <td valign="top">
-                                    <font size="2"><input type="text" size="19" name="Trueanomaly">
-                                    </font>
-                                </td>
-                            </tr>
-
-                            <tr>
-                                <td valign="top">
-                                    <font size="2">Mean Motion from TLE data</font>
-                                </td>
-                                <td valign="top">
-                                    <font size="2">rev/day (Satellite Rev/solarday)</font>
-                                </td>
-
-                                <td valign="top" bgcolor="#FFFFFF">
-                                    <font size="2"><input type="text" size="14" name="Satellite_rev_sidereal_day">from TLE
-                                    </font>
-                                </td>
-                            </tr>
-
-
-
-                            <tr>
-                                <td valign="top">
-                                    <font size="2">Current Motion</font>
-                                </td>
-                                <td valign="top">
-                                    <font size="2">rev/day</font>
-                                </td>
-
-                                <td valign="top">
-                                    <font size="2"><input type="text" size="14" name="Current_Motion" onchange="onchange_satellite_rev_solarday();calculatedriftrate()" value="">
-                                    </font>
-                                </td>
-
-
-                            </tr>
-
-
-                            <tr>
-                                <td valign="top">
-                                    <font size="2">1st derative of the Mean Motion</font>
-                                </td>
-                                <td valign="top">
-                                    <font size="2">rev/day^2</font>
-                                </td>
-
-                                <td valign="top" bgcolor="#FFFFFF">
-                                    <font size="2"><input type="text" size="14" name="first_derative_mean_motion">from TLE
-                                    </font>
-                                </td>
-                            </tr>
-
-                            <tr>
-                                <td valign="top">
-                                    <font size="2">Eccentric anomaly before iterations</font>
-                                </td>
-                                <td valign="top">
-                                    <font size="2">deg</font>
-                                </td>
-
-                                <td valign="top">
-                                    <font size="2"><input type="text" size="14" name="EccentricanomalyBeforeIterations" value="">
-                                    </font>
-                                </td>
-                            </tr>
-
-                            <tr>
-                                <td valign="top">
-                                    <font size="2">Eccentric anomaly error before iterations</font>
-                                </td>
-                                <td valign="top">
-                                    <font size="2">deg</font>
-                                </td>
-
-                                <td valign="top">
-                                    <font size="2"><input type="text" size="50" name="EccentricanomalyErrorBeforeIterations" value="">
-                                    </font>
-                                </td>
-                            </tr>
-
-
-                            <tr>
-                                <td valign="top">
-                                    <font size="2">Eccentric anomaly after iterations</font>
-                                </td>
-                                <td valign="top">
-                                    <font size="2">deg</font>
-                                </td>
-
-                                <td valign="top">
-                                    <font size="2"><input type="text" size="14" name="EccentricanomalyAfterIterations" value="">
-                                    </font>
-                                </td>
-                            </tr>
-
-                            <tr>
-                                <td valign="top">
-                                    <font size="2">Eccentric anomaly error after iterations</font>
-                                </td>
-                                <td valign="top">
-                                    <font size="2">deg</font>
-                                </td>
-
-                                <td valign="top">
-                                    <font size="2"><input type="text" size="50" name="EccentricanomalyErrorAfterIterations" value="">
-                                    </font>
-                                </td>
-                            </tr>
-
-
-
-                            <tr>
-                                <td valign="top">
-                                    <font size="2">Number of eccentric anomaly iterations</font>
-                                </td>
-                                <td valign="top">
-                                    <font size="2"></font>
-                                </td>
-
-                                <td valign="top">
-                                    <font size="2"><input type="text" size="14" name="Iterations" value="">
-                                    </font>
-                                </td>
-                            </tr>
-
-                            <tr>
-                                <td valign="top">
-                                    <font size="2">Xo orbital plane</font>
-                                </td>
-                                <td valign="top">
-                                    <font size="2">km</font>
-                                </td>
-
-                                <td valign="top">
-                                    <font size="2"><input type="text" size="14" name="X_orbit_plane" value="">
-                                    </font>
-                                </td>
-                            </tr>
-
-                            <tr>
-                                <td valign="top">
-                                    <font size="2">Yo orbital plane</font>
-                                </td>
-                                <td valign="top">
-                                    <font size="2">km</font>
-                                </td>
-
-                                <td valign="top">
-                                    <font size="2"><input type="text" size="14" name="Y_orbit_plane" value="">
-                                    </font>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td valign="top">
-                                    <font size="2">r orbital plane</font>
-                                </td>
-                                <td valign="top">
-                                    <font size="2">km</font>
-                                </td>
-
-                                <td valign="top">
-                                    <font size="2"><input type="text" size="14" name="r_orbit_plane" value="">
-                                    </font>
-                                </td>
-                            </tr>
-
-                            <tr>
-                                <td valign="top">
-                                    <font size="2">Geocentric, x</font>
-                                </td>
-                                <td valign="top">
-                                    <font size="2">km</font>
-                                </td>
-
-                                <td valign="top">
-                                    <font size="2"><input type="text" size="14" name="x_geocentric" value="">
-                                    </font>
-                                </td>
-                            </tr>
-
-                            <tr>
-                                <td valign="top">
-                                    <font size="2">Geocentric, y</font>
-                                </td>
-                                <td valign="top">
-                                    <font size="2">km</font>
-                                </td>
-
-                                <td valign="top">
-                                    <font size="2"><input type="text" size="14" name="y_geocentric" value="">
-                                    </font>
-                                </td>
-                            </tr>
-
-                            <tr>
-                                <td valign="top">
-                                    <font size="2">Geocentric, z</font>
-                                </td>
-                                <td valign="top">
-                                    <font size="2">km from equator</font>
-                                </td>
-
-                                <td valign="top">
-                                    <font size="2"><input type="text" size="14" name="z_geocentric" value="">
-                                    </font>
-                                </td>
-                            </tr>
-
-                            <tr>
-                                <td valign="top">
-                                    <font size="2">Right Ascension</font>
-                                </td>
-                                <td valign="top">
-                                    <font size="2">deg</font>
-                                </td>
-
-                                <td valign="top">
-                                    <font size="2"><input type="text" size="64" name="RA" value="">
-                                    </font>
-                                </td>
-                            </tr>
-
-                            <tr>
-                                <td valign="top">
-                                    <font size="2">GMST</font>
-                                </td>
-                                <td valign="top">
-                                    <font size="2">deg</font>
-                                </td>
-
-                                <td valign="top">
-                                    <font size="2"><input type="text" size="14" name="GMST" value=""><input type="text" size="14" name="GMST2" value="">
-                                    </font>
-                                </td>
-                            </tr>
-
-                            <tr>
-                                <td valign="top">
-                                    <font size="2">Declination</font>
-                                </td>
-                                <td valign="top">
-                                    <font size="2">deg (current inclination)</font>
-                                </td>
-
-                                <td valign="top">
-                                    <font size="2"><input type="text" size="64" name="declination" value="">
-                                    </font>
-                                </td>
-                            </tr>
-
-                            <tr>
-                                <td valign="top">
-                                    <font size="2">Satellite E/W oscillation caused by inclination</font>
-                                </td>
-                                <td valign="top">
-                                    <font size="2">deg</font>
-                                </td>
-
-                                <td valign="top">
-                                    <font size="2"><input type="text" size="14" name="EW_oscillation_caused_by_inclination" value="">
-                                    </font>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td valign="top">
-                                    <font size="2">Satellite E/W oscillation caused by eccentricity</font>
-                                </td>
-                                <td valign="top">
-                                    <font size="2">deg</font>
-                                </td>
-
-                                <td valign="top">
-                                    <font size="2"><input type="text" size="14" name="EW_oscillation_caused_by_eccentricity" value="">
-                                    </font>
-                                </td>
-                            </tr>
-
-                            <tr>
-                                <td valign="top">
-                                    <font size="2">Current Driftrate</font>
-                                </td>
-                                <td valign="top">
-                                    <font size="2">deg/day</font>
-                                </td>
-
-                                <td valign="top">
-                                    <font size="2"><input type="text" size="14" name="Driftrate" value=""><input type="text" size="14" name="Direction" value="">
-                                    </font>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td valign="top">
-                                    <font size="2">Average Driftrate</font>
-                                </td>
-                                <td valign="top">
-                                    <font size="2">deg/day</font>
-                                </td>
-
-                                <td valign="top">
-                                    <font size="2"><input type="text" size="14" name="AverageDriftrate" value=""><input type="text" size="14" name="AverageDriftrateDirection" value="">
-                                    </font>
-                                </td>
-                            </tr>
-
-                            <tr>
-                                <td valign="top">
-                                    <font size="2">Longitude Driftrate</font>
-                                </td>
-                                <td valign="top">
-                                    <font size="2">deg/day</font>
-                                </td>
-
-                                <td valign="top">
-                                    <font size="2"><input type="text" size="14" name="LongitudeDriftrate" value=""><input type="text" size="14" name="LongitudeDriftrateDirection" value="">
-                                    </font>
-                                </td>
-                            </tr>
-
-                            <tr>
-                                <td valign="top">
-                                    <font size="2">Longitude after 24hours</font>
-                                </td>
-                                <td valign="top">
-                                    <font size="2">deg</font>
-                                </td>
-
-                                <td valign="top">
-                                    <font size="2"><input type="text" size="34" name="LongitudeAfter24Hours" value="">
-                                    </font>
-                                </td>
-                            </tr>
-
-                            <tr>
-                                <td valign="top">
-                                    <font size="2">Altitude</font>
-                                </td>
-                                <td valign="top">
-                                    <font size="2">km</font>
-                                </td>
-
-                                <td valign="top">
-                                    <font size="2"><input type="text" size="14" name="Altitude" value=""><br>from GEO now:
-                                        <input type="text" size="30" name="GeoAltitude" value=""><br>Average from GEO:
-                                        <input type="text" size="30" name="AvrGeoAltitude" value="">
-                                    </font>
-                                </td>
-                            </tr>
-
-                            <tr>
-                                <td valign="top">
-                                    <font size="2">Altitude (Geodetic)</font>
-                                </td>
-                                <td valign="top">
-                                    <font size="2">km</font>
-                                </td>
-
-                                <td valign="top">
-                                    <font size="2"><input type="text" size="14" name="GeoDeticAltitude" value="">
-                                    </font>
-                                </td>
-                            </tr>
-
-                            <tr>
-                                <td valign="top">
-                                    <font size="2">Satellite period,TC</font>
-                                </td>
-                                <td valign="top">
-                                    <font size="2">hh:mm:ss</font>
-                                </td>
-
-                                <td valign="top">
-                                    <font size="2"><input type="text" size="14" name="TC" value="">
-                                    </font>
-                                </td>
-                            </tr>
-
-                            <tr>
-                                <td valign="top">
-                                    <font size="2">Nominal GEO period</font>
-                                </td>
-                                <td valign="top">
-                                    <font size="2">hh:mm:ss</font>
-                                </td>
-
-                                <td valign="top">
-                                    <font size="2"><input type="text" size="14" name="GeoTC" value="">
-                                    </font>
-                                </td>
-                            </tr>
-
-                            <tr>
-                                <td valign="top">
-                                    <font size="2">Satellite velocity</font>
-                                </td>
-                                <td valign="top">
-                                    <font size="2">km/s</font>
-                                </td>
-
-                                <td valign="top">
-                                    <font size="2"><input type="text" size="14" name="Velocity" value="">
-                                    </font>
-                                </td>
-                            </tr>
-
-                            <tr>
-                                <td valign="top">
-                                    <font size="2">Altitude at Perigee</font>
-                                </td>
-                                <td valign="top">
-                                    <font size="2">km</font>
-                                </td>
-
-                                <td valign="top">
-                                    <font size="2"><input type="text" size="14" name="Perigee" value="">
-                                    </font>
-                                </td>
-                            </tr>
-
-                            <tr>
-                                <td valign="top">
-                                    <font size="2">Altitude at Apogee</font>
-                                </td>
-                                <td valign="top">
-                                    <font size="2">km</font>
-                                </td>
-
-                                <td valign="top">
-                                    <font size="2"><input type="text" size="14" name="Apogee" value="">
-                                    </font>
-                                </td>
-                            </tr>
-
-                            <tr>
-                                <td valign="top">
-                                    <font size="2">Semi-Major-Axis</font>
-                                </td>
-                                <td valign="top">
-                                    <font size="2">km</font>
-                                </td>
-
-                                <td valign="top">
-                                    <font size="2"><input type="text" size="14" name="Semimajoraxis" value="">
-                                    </font>
-                                </td>
-                            </tr>
-
-                            <tr>
-                                <td valign="top">
-                                    <font size="2">Semi-Minor-Axis</font>
-                                </td>
-                                <td valign="top">
-                                    <font size="2">km</font>
-                                </td>
-
-                                <td valign="top">
-                                    <font size="2"><input type="text" size="14" name="Semiminoraxis" value="">
-                                    </font>
-                                </td>
-                            </tr>
-
-                            <tr>
-                                <td valign="top">
-                                    <font size="2">Satellite Longitude</font>
-                                </td>
-                                <td valign="top">
-                                    <font size="2">deg</font>
-                                </td>
-
-                                <td valign="top">
-                                    <font size="2"><input type="text" size="20" name="SatelliteLongitude" value="">
-                                    </font>
-                                </td>
-                            </tr>
-
-                            <tr>
-                                <td valign="top">
-                                    <font size="2">Satellite Geocentric Latitude</font>
-                                </td>
-                                <td valign="top">
-                                    <font size="2">deg</font>
-                                </td>
-
-                                <td valign="top">
-                                    <font size="2"><input type="text" size="20" name="SatelliteGeocentricLatitude" value="">
-                                    </font>
-                                </td>
-                            </tr>
-
-
-                            <tr>
-                                <td valign="top">
-                                    <font size="2">Satellite Geodetic Latitude</font>
-                                </td>
-                                <td valign="top">
-                                    <font size="2">deg</font>
-                                </td>
-
-                                <td valign="top">
-                                    <font size="2"><input type="text" size="20" name="SatelliteGeodeticLatitude" value="">
-                                    </font>
-                                </td>
-                            </tr>
-
-                            <tr>
-                                <td valign="top">
-                                    <font size="2">Satellite Azimuth</font>
-                                </td>
-                                <td valign="top">
-                                    <font size="2">deg</font>
-                                </td>
-
-                                <td valign="top">
-                                    <font size="2"><input type="text" size="20" name="SatelliteAzimuth" value="">
-                                    </font>
-                                </td>
-                            </tr>
-
-                            <tr>
-                                <td valign="top">
-                                    <font size="2">Satellite Elevation</font>
-                                </td>
-                                <td valign="top">
-                                    <font size="2">deg</font>
-                                </td>
-
-                                <td valign="top">
-                                    <font size="2"><input type="text" size="20" name="SatelliteElevation" value="">
-                                    </font>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td valign="top">
-                                    <font size="2">Satellite Range</font>
-                                </td>
-                                <td valign="top">
-                                    <font size="2">km</font>
-                                </td>
-
-                                <td valign="top">
-                                    <font size="2"><input type="text" size="20" name="SatelliteRange" value="">
-                                    </font>
-                                </td>
-                            </tr>
-                        </table>
-
-                        <p align=center><input onclick="generate_listings()" type=button value="Generate 170 hour @ 1 hour interval listings" name=button2></font>
-                        </P>
-
-                        <p align=center><input onclick="generate_24hour_listings()" type=button value="Generate 24 hour @ 1 minute interval listings" name=button4></font>
-                        </P>
-
+                    Adapted from: Jens T. Satre - <a href="http://www.satellite-calculations.com/" target="_blank">http://www.satellite-calculations.com/</a>
+                    </br>
+                </div>
+                <div class="col-md-12">
+                    <form method="post" name="Tracker" style="min-width: 680px; background-color: #C0C0C0;">
+                        <div class="row">
+                            <div class="col-md-4">
+                                &nbsp;
+                            </div>
+                            <div class="col-md-4">
+                                &nbsp;
+                            </div>
+                            <div class="col-md-4">
+                                &nbsp;
+                            </div>
+                        </div>
+                        <!-- Jens T. Satre - http://www.satellite-calculations.com/ -->
+                        <div class="row">
+                            <div class="col-md-4">
+                                Site Latitude
+                            </div>
+                            <div class="col-md-4">
+                                Degrees
+                            </div>
+                            <div class="col-md-4">
+                                <input type="text" size="6" name="LatitudeDegrees" value="59.92" onchange="SetCookie();CalculateCoordinate();ManualTimeUpdate()">
+                                <select name="LatitudeDirection" size="1" onchange="SetCookie();CalculateCoordinate();ManualTimeUpdate()">
+                                    <option selected value="North">North</option>
+                                    <option value="South">South</option>
+                                </select>
+                                <input type="text" size="1" name="LatDegrees" onchange="CalculateLat();SetCookie();CalculateCoordinate();ManualTimeUpdate()">deg.
+                                <input type="text" size="1" name="LatMinutes" onchange="CalculateLat();SetCookie();CalculateCoordinate();ManualTimeUpdate()">min
+                                <input type="text" size="1" name="LatSeconds" onchange="CalculateLat();SetCookie();CalculateCoordinate();ManualTimeUpdate()">sec
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-4">
+                                Site Longitude
+                            </div>
+                            <div class="col-md-4">
+                                Degrees
+                            </div>
+                            <div class="col-md-4">
+                                <input type="text" size="6" name="LongitudeDegrees" value="10.75" onchange="SetCookie();CalculateCoordinate();ManualTimeUpdate()">
+                                <select name="LongitudeDirection" size="1" onchange="SetCookie();CalculateCoordinate();ManualTimeUpdate()">
+                                            <option selected value="East">East</option>
+                                            <option value="West">West</option>
+                                        </select>
+                                <input type="text" size="1" name="LonDegrees" onchange="CalculateLon();SetCookie();CalculateCoordinate();ManualTimeUpdate()">deg.
+                                <input type="text" size="1" name="LonMinutes" onchange="CalculateLon();SetCookie();CalculateCoordinate();ManualTimeUpdate()">min
+                                <input type="text" size="1" name="LonSeconds" onchange="CalculateLon();SetCookie();CalculateCoordinate();ManualTimeUpdate()">sec
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-4">
+                                Epoch time
+                            </div>
+                            <div class="col-md-4">
+                            </div>
+                            <div class="col-md-4">
+                                <input type="text" name="DateEpoch" value="">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-4">
+                                Time elepsed since epoch
+                            </div>
+                            <div class="col-md-4">
+                                hh:mm:ss
+                            </div>
+                            <div class="col-md-4">
+                                <input type="text" name="TimeElepsedSinceEpoch" value="">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-4">
+                                TLE data and time format
+                            </div>
+                            <div class="col-md-4">
+                            </div>
+                            <div class="col-md-4">
+                                <input type="text" name="TimeEpochFormat">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-4">
+                                Julian Day
+                            </div>
+                            <div class="col-md-4">
+                            </div>
+                            <div class="col-md-4">
+                                <input type="text" name="JulianDay">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-4">
+                                Modified Julian Day
+                            </div>
+                            <div class="col-md-4">
+                            </div>
+                            <div class="col-md-4">
+                                <input type="text" name="ModifiedJulianDay">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-4">
+                                Days since J2000.0
+                            </div>
+                            <div class="col-md-4">
+                            </div>
+                            <div class="col-md-4">
+                                <input type="text" name="dJ2000">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-4">
+                                Day
+                            </div>
+                            <div class="col-md-4">
+                            </div>
+                            <div class="col-md-4">
+                                <input type="text" size="2" name="DayNow" value="1" onchange="ManualTimeUpdate()">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-4">
+                                Month
+                            </div>
+                            <div class="col-md-4">
+                            </div>
+                            <div class="col-md-4">
+                                <input type="text" size="2" name="MonthNow" value="10" onchange="ManualTimeUpdate()">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-4">
+                                Year
+                            </div>
+                            <div class="col-md-4">
+                            </div>
+                            <div class="col-md-4">
+                                <input type="text" size="4" name="YearNow" onchange="ManualTimeUpdate()">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-4">
+                                Hour
+                            </div>
+                            <div class="col-md-4">
+                            </div>
+                            <div class="col-md-4">
+                                <input type="text" size="4" name="HourNow" value="00" onchange="ManualTimeUpdate()">(UTC)
+                                <input onclick="onchange_satellite_rev_siderealday();TimeUpdateNow()" type=button value="Get UTC time now" name=button3>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-4">
+                                Minute
+                            </div>
+                            <div class="col-md-4">
+                            </div>
+                            <div class="col-md-4">
+                                <input type="text" size="4" name="MinuteNow" value="" onchange="ManualTimeUpdate()">(UTC)
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-4">
+                                Second
+                            </div>
+                            <div class="col-md-4">
+                            </div>
+                            <div class="col-md-4">
+                                <input type="text" size="4" name="SecondNow" value="" onchange="ManualTimeUpdate()">(UTC)
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-4">
+                                Time of calculation
+                            </div>
+                            <div class="col-md-4">
+                                Local time (if offset from UTC)
+                            </div>
+                            <div class="col-md-4">
+                                <input type="text" name="TimeOfCalculation" value="">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-4">
+                                Satellite common name
+                            </div>
+                            <div class="col-md-4">
+                            </div>
+                            <div class="col-md-4">
+                                <input type="text" name="CommonName" value="">from TLE
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-4">
+                                Object Id
+                            </div>
+                            <div class="col-md-4">
+                            </div>
+                            <div class="col-md-4">
+                                <input type="text" name="ObjectID" value="">from TLE
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-4">
+                                International Designator
+                            </div>
+                            <div class="col-md-4">
+                            </div>
+                            <div class="col-md-4">
+                                <input type="text" name="InternationalDesignator" value="">from TLE
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-4">
+                                Elset Classification
+                            </div>
+                            <div class="col-md-4">
+                            </div>
+                            <div class="col-md-4">
+                                <input type="text" name="ElsetClassification" value="">from TLE
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-4">
+                                Number of orbits at Epoch
+                            </div>
+                            <div class="col-md-4">
+                            </div>
+                            <div class="col-md-4">
+                                <input type="text" name="NumberOfOrbitsAtEpoch" value="">from TLE
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-4">
+                                Number of orbits now
+                            </div>
+                            <div class="col-md-4">
+                            </div>
+                            <div class="col-md-4">
+                                <input type="text" name="NumberOfOrbitsNow" value="">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-4">
+                                Earth Rev/solarday
+                            </div>
+                            <div class="col-md-4">
+                                rev/day
+                            </div>
+                            <div class="col-md-4">
+                                <input type="text" name="Earth_rev_solar_day" value="">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-4">
+                                Earth Deg/solarday
+                            </div>
+                            <div class="col-md-4">
+                                deg/day
+                            </div>
+                            <div class="col-md-4">
+                                <input type="text" name="Earth_deg_solar_day" value="">
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-4">
+                                Earth Rev/siderealday
+                            </div>
+                            <div class="col-md-4">
+                                rev/day
+                            </div>
+                            <div class="col-md-4">
+                                <input type="text" name="Earth_rev_sidereal_day" value="">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-4">
+                                Earth Deg/siderealday
+                            </div>
+                            <div class="col-md-4">
+                                deg/day
+                            </div>
+                            <div class="col-md-4">
+                                <input type="text" name="Earth_deg_sidereal_day" value="">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-4">
+                                Satellite Deg/siderealday
+                            </div>
+                            <div class="col-md-4">
+                                deg/day
+                            </div>
+                            <div class="col-md-4">
+                                <input type="text" name="Satellite_deg_sidereal_day" value="">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-4">
+                                Satellite Rev/sidereal
+                            </div>
+                            <div class="col-md-4">
+                                rev/day
+                            </div>
+                            <div class="col-md-4">
+                                <input type="text" name="Satellite_rev_solar_day" onchange="onchange_satellite_rev_solarday();calculatedriftrate()" value="">(calculated for the time selected)
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-4">
+                                Satellite Deg/solarday
+                            </div>
+                            <div class="col-md-4">
+                                deg/day
+                            </div>
+                            <div class="col-md-4">
+                                <input type="text" name="Satellite_deg_solar_day" value="">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-4">
+                                Epoch
+                            </div>
+                            <div class="col-md-4">
+                            </div>
+                            <div class="col-md-4">
+                                <input type="text" name="Epoch">from TLE
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-4">
+                                Inclination
+                            </div>
+                            <div class="col-md-4">
+                                deg
+                            </div>
+                            <div class="col-md-4">
+                                <input type="text" name="Inclination">from TLE
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-4">
+                                Right Ascension of Ascending node
+                            </div>
+                            <div class="col-md-4">
+                                deg
+                            </div>
+                            <div class="col-md-4">
+                                <input type="text" name="RA_AN">from TLE
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-4">
+                                Eccentricity
+                            </div>
+                            <div class="col-md-4">
+                            </div>
+                            <div class="col-md-4">
+                                <input type="text" name="Eccentricity">from TLE
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-4">
+                                Argument of perigee
+                            </div>
+                            <div class="col-md-4">
+                                deg
+                            </div>
+                            <div class="col-md-4">
+                                <input type="text" name="Argument_of_perigee">from TLE
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-4">
+                                Mean anomaly, M0
+                            </div>
+                            <div class="col-md-4">
+                                deg
+                            </div>
+                            <div class="col-md-4">
+                                <input type="text" name="Meananomaly">at reference time (from TLE)
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-4">
+                                Mean anomaly Calculated
+                            </div>
+                            <div class="col-md-4">
+                                deg
+                            </div>
+                            <div class="col-md-4">
+                                <input type="text" name="MeananomalyCalculated" value="">calculated for time selected
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-4">
+                                True anomaly (v)
+                            </div>
+                            <div class="col-md-4">
+                                deg
+                            </div>
+                            <div class="col-md-4">
+                                <input type="text" name="Trueanomaly">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-4">
+                                Mean Motion from TLE data
+                            </div>
+                            <div class="col-md-4">
+                                rev/day (Satellite Rev/solarday)
+                            </div>
+                            <div class="col-md-4">
+                                <input type="text" name="Satellite_rev_sidereal_day">from TLE
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-4">
+                                Current Motion
+                            </div>
+                            <div class="col-md-4">
+                                rev/day
+                            </div>
+                            <div class="col-md-4">
+                                <input type="text" name="Current_Motion" onchange="onchange_satellite_rev_solarday();calculatedriftrate()" value="">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-4">
+                                1st derative of the Mean Motion
+                            </div>
+                            <div class="col-md-4">
+                                rev/day^2
+                            </div>
+                            <div class="col-md-4">
+                                <input type="text" name="first_derative_mean_motion">from TLE
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-4">
+                                Eccentric anomaly before iterations
+                            </div>
+                            <div class="col-md-4">
+                                deg
+                            </div>
+                            <div class="col-md-4">
+                                <input type="text" name="EccentricanomalyBeforeIterations" value="">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-4">
+                                Eccentric anomaly error before iterations
+                            </div>
+                            <div class="col-md-4">
+                                deg
+                            </div>
+                            <div class="col-md-4">
+                                <input type="text" name="EccentricanomalyErrorBeforeIterations" value="">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-4">
+                                Eccentric anomaly after iterations
+                            </div>
+                            <div class="col-md-4">
+                                deg
+                            </div>
+                            <div class="col-md-4">
+                                <input type="text" name="EccentricanomalyAfterIterations" value="">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-4">
+                                Eccentric anomaly error after iterations
+                            </div>
+                            <div class="col-md-4">
+                                deg
+                            </div>
+                            <div class="col-md-4">
+                                <input type="text" name="EccentricanomalyErrorAfterIterations" value="">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-4">
+                                Number of eccentric anomaly iterations
+                            </div>
+                            <div class="col-md-4">
+                            </div>
+                            <div class="col-md-4">
+                                <input type="text" name="Iterations" value="">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-4">
+                                Xo orbital plane
+                            </div>
+                            <div class="col-md-4">
+                                km
+                            </div>
+                            <div class="col-md-4">
+                                <input type="text" name="X_orbit_plane" value="">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-4">
+                                Yo orbital plane
+                            </div>
+                            <div class="col-md-4">
+                                km
+                            </div>
+                            <div class="col-md-4">
+                                <input type="text" name="Y_orbit_plane" value="">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-4">
+                                r orbital plane
+                            </div>
+                            <div class="col-md-4">
+                                km
+                            </div>
+                            <div class="col-md-4">
+                                <input type="text" name="r_orbit_plane" value="">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-4">
+                                Geocentric, x
+                            </div>
+                            <div class="col-md-4">
+                                km
+                            </div>
+                            <div class="col-md-4">
+                                <input type="text" name="x_geocentric" value="">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-4">
+                                Geocentric, y
+                            </div>
+                            <div class="col-md-4">
+                                km
+                            </div>
+                            <div class="col-md-4">
+                                <input type="text" name="y_geocentric" value="">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-4">
+                                Geocentric, z
+                            </div>
+                            <div class="col-md-4">
+                                km from equator
+                            </div>
+                            <div class="col-md-4">
+                                <input type="text" name="z_geocentric" value="">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-4">
+                                Right Ascension
+                            </div>
+                            <div class="col-md-4">
+                                deg
+                            </div>
+                            <div class="col-md-4">
+                                <input type="text" name="RA" value="">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-4">
+                                GMST
+                            </div>
+                            <div class="col-md-4">
+                                deg
+                            </div>
+                            <div class="col-md-4">
+                                <input type="text" name="GMST" value=""><input type="text" name="GMST2" value="">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-4">
+                                Declination
+                            </div>
+                            <div class="col-md-4">
+                                deg (current inclination)
+                            </div>
+                            <div class="col-md-4">
+                                <input type="text" name="declination" value="">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-4">
+                                Satellite E/W oscillation caused by inclination
+                            </div>
+                            <div class="col-md-4">
+                                deg
+                            </div>
+                            <div class="col-md-4">
+                                <input type="text" name="EW_oscillation_caused_by_inclination" value="">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-4">
+                                Satellite E/W oscillation caused by eccentricity
+                            </div>
+                            <div class="col-md-4">
+                                deg
+                            </div>
+                            <div class="col-md-4">
+                                <input type="text" name="EW_oscillation_caused_by_eccentricity" value="">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-4">
+                                Current Driftrate
+                            </div>
+                            <div class="col-md-4">
+                                deg/day
+                            </div>
+                            <div class="col-md-4">
+                                <input type="text" name="Driftrate" value="">
+                                <input type="text" name="Direction" value="">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-4">
+                                Average Driftrate
+                            </div>
+                            <div class="col-md-4">
+                                deg/day
+                            </div>
+                            <div class="col-md-4">
+                                <input type="text" name="AverageDriftrate" value="">
+                                <input type="text" name="AverageDriftrateDirection" value="">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-4">
+                                Longitude Driftrate
+                            </div>
+                            <div class="col-md-4">
+                                deg/day
+                            </div>
+                            <div class="col-md-4">
+                                <input type="text" name="LongitudeDriftrate" value="">
+                                <input type="text" name="LongitudeDriftrateDirection" value="">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-4">
+                                Longitude after 24hours
+                            </div>
+                            <div class="col-md-4">
+                                deg
+                            </div>
+                            <div class="col-md-4">
+                                <input type="text" name="LongitudeAfter24Hours" value="">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-4">
+                                Altitude
+                            </div>
+                            <div class="col-md-4">
+                                km
+                            </div>
+                            <div class="col-md-4">
+                                <input type="text" name="Altitude" value=""> from GEO now:
+                                <input type="text" name="GeoAltitude" value=""> Average from GEO:
+                                <input type="text" name="AvrGeoAltitude" value="">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-4">
+                                Altitude (Geodetic)
+                            </div>
+                            <div class="col-md-4">
+                                km
+                            </div>
+                            <div class="col-md-4">
+                                <input type="text" name="GeoDeticAltitude" value="">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-4">
+                                Satellite period,TC
+                            </div>
+                            <div class="col-md-4">
+                                hh:mm:ss
+                            </div>
+                            <div class="col-md-4">
+                                <input type="text" name="TC" value="">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-4">
+                                Nominal GEO period
+                            </div>
+                            <div class="col-md-4">
+                                hh:mm:ss
+                            </div>
+                            <div class="col-md-4">
+                                <input type="text" name="GeoTC" value="">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-4">
+                                Satellite velocity
+                            </div>
+                            <div class="col-md-4">
+                                km/s
+                            </div>
+                            <div class="col-md-4">
+                                <input type="text" name="Velocity" value="">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-4">
+                                Altitude at Perigee
+                            </div>
+                            <div class="col-md-4">
+                                km
+                            </div>
+                            <div class="col-md-4">
+                                <input type="text" name="Perigee" value="">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-4">
+                                Altitude at Apogee
+                            </div>
+                            <div class="col-md-4">
+                                km
+                            </div>
+                            <div class="col-md-4">
+                                <input type="text" name="Apogee" value="">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-4">
+                                Semi-Major-Axis
+                            </div>
+                            <div class="col-md-4">
+                                km
+                            </div>
+                            <div class="col-md-4">
+                                <input type="text" name="Semimajoraxis" value="">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-4">
+                                Semi-Minor-Axis
+                            </div>
+                            <div class="col-md-4">
+                                km
+                            </div>
+                            <div class="col-md-4">
+                                <input type="text" name="Semiminoraxis" value="">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-4">
+                                Satellite Longitude
+                            </div>
+                            <div class="col-md-4">
+                                deg
+                            </div>
+                            <div class="col-md-4">
+                                <input type="text" name="SatelliteLongitude" value="">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-4">
+                                Satellite Geocentric Latitude
+                            </div>
+                            <div class="col-md-4">
+                                deg
+                            </div>
+                            <div class="col-md-4">
+                                <input type="text" name="SatelliteGeocentricLatitude" value="">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-4">
+                                Satellite Geodetic Latitude
+                            </div>
+                            <div class="col-md-4">
+                                deg
+                            </div>
+                            <div class="col-md-4">
+                                <input type="text" name="SatelliteGeodeticLatitude" value="">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-4">
+                                Satellite Azimuth
+                            </div>
+                            <div class="col-md-4">
+                                deg
+                            </div>
+                            <div class="col-md-4">
+                                <input type="text" name="SatelliteAzimuth" value="">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-4">
+                                Satellite Elevation
+                            </div>
+                            <div class="col-md-4">
+                                deg
+                            </div>
+                            <div class="col-md-4">
+                                <input type="text" name="SatelliteElevation" value="">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-4">
+                                Satellite Range
+                            </div>
+                            <div class="col-md-4">
+                                km
+                            </div>
+                            <div class="col-md-4">
+                                <input type="text" name="SatelliteRange" value="">
+                            </div>
+                        </div>
+                        <input onclick="generate_listings()" type=button value="Generate 170 hour @ 1 hour interval listings" name=button2>
+                        <input onclick="generate_24hour_listings()" type=button value="Generate 24 hour @ 1 minute interval listings" name=button4>
                     </form>
                     <!-- Jens T. Satre - http://www.satellite-calculations.com/ -->
-
                 </div>
             </div>
+        </div>
         </div>
     </section>
     <footer class="container">
