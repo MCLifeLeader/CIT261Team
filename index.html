@@ -26,6 +26,8 @@
     <script src="Scripts/swapImage.js"></script>
     <script src="Scripts/tleCalculator.js"></script>
     <script src="Scripts/latLongLoc.js"></script>
+    <!-- This is to handle a canvase resize for responsive behavior -->
+    <script src="Scripts/jquery-3.1.1.min.js"></script>
 </head>
 
 <body onload="initPageData(); line();">
@@ -103,9 +105,21 @@
                     <br/><br />
                 </div>
                 <div id="map" class="col-md-12">
-<!--                    <img id="imageToSwap" src="Images/WorldMap01.png">-->
                     <img id="redbox" src="Images/satallite.png">
-                    <canvas id="imageToSwap"></canvas>
+                    <canvas id="altImageToSwap"></canvas>
+                    <script>
+                        //http://stackoverflow.com/questions/34772957/how-to-make-canvas-responsive
+                        function resize() {
+                            $("#altImageToSwap").outerHeight($(window).height() - $("#altImageToSwap").offset().top - Math.abs($("#altImageToSwap").outerHeight(true) - $("#altImageToSwap").outerHeight()));
+                            $("#altImageToSwap").outerWidth($(window).width() - $("#altImageToSwap").offset().top - Math.abs($("#altImageToSwap").outerWidth(true) - $("#altImageToSwap").outerWidth()));
+                        }
+                        $(document).ready(function() {
+                            resize();
+                            $(window).on("resize", function() {
+                                resize();
+                            });
+                        });
+                    </script>
                 </div>
                 <div class="col-md-12">
                     Adapted from: Jens T. Satre - <a href="http://www.satellite-calculations.com/" target="_blank">http://www.satellite-calculations.com/</a>
@@ -945,8 +959,11 @@
                     </form>
                     <!-- Jens T. Satre - http://www.satellite-calculations.com/ -->
                 </div>
+                <div class="col-md-12">
+                    <img id="imageToSwap" src="Images/WorldMap01.png">
+
+                </div>
             </div>
-        </div>
         </div>
     </section>
     <footer class="container">

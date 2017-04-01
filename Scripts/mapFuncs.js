@@ -2,10 +2,10 @@
 
 function changeMap(id) {
     var request = new XMLHttpRequest();
-    request.onreadystatechange = function () {
+    request.onreadystatechange = function() {
         if (this.readyState == 4 && this.status == 200) {
             var uriImg = '<img src="images/"+id+".png" alt="mapImage">'
-            // document.getElementById("map").innerHTML = uriImg;
+                // document.getElementById("map").innerHTML = uriImg;
             var parent = document.getElementById("map");
             var child = document.getElementById(id);
             // parent.removeChild(child);

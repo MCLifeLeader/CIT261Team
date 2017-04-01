@@ -105,16 +105,25 @@ h1 {
     margin: 0.67em 0;
 }
 
-img {
+#imageToSwap {
     border: 0 none;
     width: 100%;
     height: auto;
+    min-height: 512px;
 }
 
 canvas {
     border: 0 none;
     width: 100%;
     height: auto;
+    min-height: 512px;
+}
+
+#altImageToSwap {
+    border: 0 none;
+    width: 100%;
+    height: auto;
+    min-height: 512px;
 }
 
 hr {
@@ -280,17 +289,16 @@ th {
 }
 
 #redbox {
-      width: 30px;
-      height: 30px;
-      position: relative;
-/*      margin-top: -125px;*/
-      z-index:100;
-      }
+    width: 30px;
+    height: 30px;
+    position: relative;
+    /*      margin-top: -125px;*/
+    z-index: 100;
+}
 
-#imageToSwap
-{
-    z-index:-1;
-    position:static;
+#imageToSwap {
+    z-index: -1;
+    position: static;
 }
 
 textarea {
